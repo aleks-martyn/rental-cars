@@ -11,39 +11,7 @@ import {
   SearchBtn,
 } from "./DropdownFilter.styled";
 
-export const DropdownFilter = ({ onSubmit }) => {
-  const brands = [
-    { name: "Buick" },
-    { name: "Volvo" },
-    { name: "HUMMER" },
-    { name: "Subaru" },
-    { name: "Mitsubishi" },
-    { name: "Nissan" },
-    { name: "Lincoln" },
-    { name: "GMC" },
-    { name: "Hyundai" },
-    { name: "MINI" },
-    { name: "Bentley" },
-    { name: "Mercedes-Benz" },
-    { name: "Aston Martin" },
-    { name: "Pontiac" },
-    { name: "Lamborghini" },
-    { name: "Audi" },
-    { name: "BMW" },
-    { name: "Chevrolet" },
-    { name: "Chrysler" },
-    { name: "Kia" },
-    { name: "Land" },
-  ];
-
-  const prices = [
-    { quantity: "30" },
-    { quantity: "40" },
-    { quantity: "50" },
-    { quantity: "60" },
-    { quantity: "70" },
-    { quantity: "80" },
-  ];
+export const DropdownFilter = ({ onSubmit, brands, prices }) => {
 
   return (
     <StyledSection>
