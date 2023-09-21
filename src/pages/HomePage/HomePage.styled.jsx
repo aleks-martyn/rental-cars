@@ -12,6 +12,7 @@ export const CatalogBtn = styled.button`
   text-align: center;
   color: var(--button-text-color);
   background-color: var(--accent-color);
+  font-family: 'Manrope';
   font-weight: 600;
   font-size: 14px;
   line-height: 1.43;
