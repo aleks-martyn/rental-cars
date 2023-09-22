@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/rental-cars/static/css/main.fcd7d40b.css",
-    "main.js": "/rental-cars/static/js/main.556c62e9.js",
+    "main.css": "/rental-cars/static/css/main.297773ea.css",
+    "main.js": "/rental-cars/static/js/main.264126eb.js",
     "static/js/929.718ad4da.chunk.js": "/rental-cars/static/js/929.718ad4da.chunk.js",
-    "static/js/549.8cd781f4.chunk.js": "/rental-cars/static/js/549.8cd781f4.chunk.js",
+    "static/js/549.38153711.chunk.js": "/rental-cars/static/js/549.38153711.chunk.js",
     "static/js/197.3126111f.chunk.js": "/rental-cars/static/js/197.3126111f.chunk.js",
     "static/js/593.0c935226.chunk.js": "/rental-cars/static/js/593.0c935226.chunk.js",
     "static/js/954.c2669e34.chunk.js": "/rental-cars/static/js/954.c2669e34.chunk.js",
@@ -11,16 +11,16 @@
     "static/media/Manrope-Medium.ttf": "/rental-cars/static/media/Manrope-Medium.08894ccb04665d1a9d53.ttf",
     "static/media/Manrope-Regular.ttf": "/rental-cars/static/media/Manrope-Regular.a9b9e09fe6b69741f316.ttf",
     "index.html": "/rental-cars/index.html",
-    "main.fcd7d40b.css.map": "/rental-cars/static/css/main.fcd7d40b.css.map",
-    "main.556c62e9.js.map": "/rental-cars/static/js/main.556c62e9.js.map",
+    "main.297773ea.css.map": "/rental-cars/static/css/main.297773ea.css.map",
+    "main.264126eb.js.map": "/rental-cars/static/js/main.264126eb.js.map",
     "929.718ad4da.chunk.js.map": "/rental-cars/static/js/929.718ad4da.chunk.js.map",
-    "549.8cd781f4.chunk.js.map": "/rental-cars/static/js/549.8cd781f4.chunk.js.map",
+    "549.38153711.chunk.js.map": "/rental-cars/static/js/549.38153711.chunk.js.map",
     "197.3126111f.chunk.js.map": "/rental-cars/static/js/197.3126111f.chunk.js.map",
     "593.0c935226.chunk.js.map": "/rental-cars/static/js/593.0c935226.chunk.js.map",
     "954.c2669e34.chunk.js.map": "/rental-cars/static/js/954.c2669e34.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fcd7d40b.css",
-    "static/js/main.556c62e9.js"
+    "static/css/main.297773ea.css",
+    "static/js/main.264126eb.js"
   ]
 }
