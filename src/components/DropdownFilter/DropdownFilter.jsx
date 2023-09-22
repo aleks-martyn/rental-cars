@@ -6,6 +6,7 @@ import {
   InputInnerWrap,
   Subtitle,
   StyledSelect,
+  StyledOption,
   StyledLabel,
   StyledInput,
   SearchBtn,
@@ -22,9 +23,9 @@ export const DropdownFilter = ({ onSubmit, brands, prices }) => {
           <StyledSelect name="cars" id="car-select">
             <option value="">Enter the text</option>
             {brands.map(({ name }) => (
-              <option key={name} value={name}>
+              <StyledOption key={name} value={name}>
                 {name}
-              </option>
+              </StyledOption>
             ))}
           </StyledSelect>
         </Wrap>
@@ -35,9 +36,9 @@ export const DropdownFilter = ({ onSubmit, brands, prices }) => {
           <StyledSelect name="prices" id="price-select">
             <option value="">To $</option>
             {prices.map(({ quantity }) => (
-              <option key={quantity} value={quantity}>
+              <StyledOption key={quantity} value={quantity}>
                 {quantity}
-              </option>
+              </StyledOption>
             ))}
           </StyledSelect>
         </Wrap>

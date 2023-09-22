@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const StyledSection = styled.section`
   padding-top: 100px;
@@ -42,6 +42,14 @@ export const StyledSelect = styled.select`
   border: none;
   border-radius: 14px;
   background-color: var(--select-color);
+`;
+
+export const StyledOption = styled.option`
+  color: var(--select-text-color);
+  font-family: 'Manrope';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
 `;
 
 export const StyledLabel = styled.label`
