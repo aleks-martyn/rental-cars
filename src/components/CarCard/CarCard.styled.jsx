@@ -78,6 +78,13 @@ export const MainInfoText = styled.p`
   line-height: 1.5;
 `;
 
+export const ModelName = styled.span`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--accent-color);
+`;
+
 export const InfoText = styled.p`
   font-weight: 400;
   font-size: 12px;

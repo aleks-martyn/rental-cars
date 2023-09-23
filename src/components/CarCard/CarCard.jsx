@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   CarItem,
   ImgWrap,
@@ -10,12 +10,13 @@ import {
   InfoOtherWrap,
   OtherDataWrap,
   MainInfoText,
+  ModelName,
   InfoText,
   LearnMoreBtn,
-} from "./CarCard.styled";
-import { addCarToList, deleteCarFromList } from "./localStorageFunctions";
+} from './CarCard.styled';
+import { addCarToList, deleteCarFromList } from './localStorageFunctions';
 
-export const Car = (car) => {
+export const Car = car => {
   const {
     id,
     year,
@@ -38,17 +39,17 @@ export const Car = (car) => {
 
   const [activeFavoriteBtn, setActiveFavoriteBtn] = useState(false);
   const [favoriteCarId, setFavoriteCarId] = useState(null);
-  const LOCALSTORAGE_KEY = "favorite-cars";
+  const LOCALSTORAGE_KEY = 'favorite-cars';
 
   useEffect(() => {
     try {
       const items = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-      const el = items.find(item => item.id === id.toString())
-      if(el) setActiveFavoriteBtn(true)
+      const el = items.find(item => item.id === id.toString());
+      if (el) setActiveFavoriteBtn(true);
     } catch (error) {
       console.log(error.message);
     }
-  }, [id])
+  }, [id]);
 
   if (activeFavoriteBtn) {
     addCarToList(LOCALSTORAGE_KEY, favoriteCarId);
@@ -56,15 +57,15 @@ export const Car = (car) => {
     deleteCarFromList(LOCALSTORAGE_KEY, favoriteCarId);
   }
 
-  const toggleFavoriteBtn = (event) => {
-    setActiveFavoriteBtn((prev) => !prev);
+  const toggleFavoriteBtn = event => {
+    setActiveFavoriteBtn(prev => !prev);
     setFavoriteCarId(event.currentTarget.dataset.carid);
   };
 
   const shortFunctionalities = functionalities[0]
-    .split(" ")
+    .split(' ')
     .slice(0, 2)
-    .join(" ");
+    .join(' ');
 
   const handleLearnMoreBtnClick = () =>
     openModal(
@@ -102,7 +103,9 @@ export const Car = (car) => {
       <InfoWrap>
         <InfoInnerWrap>
           <MainInfoText>
-            {make}, {year}
+            {make}
+            <ModelName> {model}, </ModelName>
+            {year}
           </MainInfoText>
 
           <MainInfoText>{rentalPrice}</MainInfoText>
