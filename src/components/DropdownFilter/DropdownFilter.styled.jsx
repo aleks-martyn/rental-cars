@@ -69,7 +69,7 @@ export const StyledInput = styled.input`
   background-color: var(--select-color);
 `;
 
-export const SearchBtn = styled.button`
+export const FormBtn = styled.button`
   min-width: 136px;
   height: 48px;
   padding: 14px 44px;

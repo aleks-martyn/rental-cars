@@ -9,7 +9,7 @@ import {
   StyledOption,
   StyledLabel,
   StyledInput,
-  SearchBtn,
+  FormBtn,
 } from "./DropdownFilter.styled";
 
 export const DropdownFilter = ({ onSubmit, brands, prices }) => {
@@ -59,7 +59,9 @@ export const DropdownFilter = ({ onSubmit, brands, prices }) => {
           </InputWrap>
         </Wrap>
 
-        <SearchBtn type="submit">Search</SearchBtn>
+        <FormBtn type="submit">Search</FormBtn>
+
+        <FormBtn type="reset">Reset</FormBtn>
       </StyledForm>
     </StyledSection>
   );
