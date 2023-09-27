@@ -16,7 +16,7 @@ export const fetchCars = async (page) => {
 };
 
 export const fetchAllCars = async () => {
-  const url = `${BASE_URL}/cars?`;
+  const url = `${BASE_URL}/cars`;
 
   const { data } = await axios.get(url);
 

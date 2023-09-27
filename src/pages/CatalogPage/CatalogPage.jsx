@@ -21,33 +21,32 @@ export default function CatalogPage() {
   const [status, setStatus] = useState('pending');
   let p = page;
 
-  const allBrands = cars.map(car => car.make);
-  const uniqueBrands = allBrands.filter(
-    (brand, index, array) => array.indexOf(brand) === index
-  );
-  const brands = uniqueBrands.map(brand => {
-    return { name: brand };
-  });
-
   useEffect(() => {
-    const getCars = async page => {
-      try {
-        const res = await fetchCars(page);
-        setCars(res);
+    fetchCars(page)
+      .then(res => {
+        page === 1 ? setCars(res) : setCars(prev => [...prev, ...res]);
+        setError(null);
         setStatus('resolved');
-      } catch (error) {
+      })
+      .catch(error => {
         setError(error);
         setStatus('rejected');
-      }
-    };
-
-    getCars(page);
+      });
   }, [page]);
 
   const handleLoadmoreBtnClick = () => {
-    p += 1;
-    setPage(p);
+    setPage((p += 1));
   };
+
+  const allBrands = cars.map(car => car.make);
+
+  const uniqueBrands = allBrands.filter(
+    (brand, index, array) => array.indexOf(brand) === index
+  );
+
+  const brands = uniqueBrands.map(brand => {
+    return { name: brand };
+  });
 
   const handleSubmit = event => {
     event.preventDefault();
