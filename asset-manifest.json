@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/rental-cars/static/css/main.297773ea.css",
-    "main.js": "/rental-cars/static/js/main.589b85ee.js",
+    "main.js": "/rental-cars/static/js/main.9659037c.js",
     "static/js/929.718ad4da.chunk.js": "/rental-cars/static/js/929.718ad4da.chunk.js",
     "static/js/549.d0ef50bf.chunk.js": "/rental-cars/static/js/549.d0ef50bf.chunk.js",
-    "static/js/197.3126111f.chunk.js": "/rental-cars/static/js/197.3126111f.chunk.js",
+    "static/js/197.713d3742.chunk.js": "/rental-cars/static/js/197.713d3742.chunk.js",
     "static/js/593.0c935226.chunk.js": "/rental-cars/static/js/593.0c935226.chunk.js",
     "static/js/954.3d32a4c4.chunk.js": "/rental-cars/static/js/954.3d32a4c4.chunk.js",
     "static/media/Manrope-SemiBold.ttf": "/rental-cars/static/media/Manrope-SemiBold.310f108cc524df0e5ffc.ttf",
@@ -12,15 +12,15 @@
     "static/media/Manrope-Regular.ttf": "/rental-cars/static/media/Manrope-Regular.a9b9e09fe6b69741f316.ttf",
     "index.html": "/rental-cars/index.html",
     "main.297773ea.css.map": "/rental-cars/static/css/main.297773ea.css.map",
-    "main.589b85ee.js.map": "/rental-cars/static/js/main.589b85ee.js.map",
+    "main.9659037c.js.map": "/rental-cars/static/js/main.9659037c.js.map",
     "929.718ad4da.chunk.js.map": "/rental-cars/static/js/929.718ad4da.chunk.js.map",
     "549.d0ef50bf.chunk.js.map": "/rental-cars/static/js/549.d0ef50bf.chunk.js.map",
-    "197.3126111f.chunk.js.map": "/rental-cars/static/js/197.3126111f.chunk.js.map",
+    "197.713d3742.chunk.js.map": "/rental-cars/static/js/197.713d3742.chunk.js.map",
     "593.0c935226.chunk.js.map": "/rental-cars/static/js/593.0c935226.chunk.js.map",
     "954.3d32a4c4.chunk.js.map": "/rental-cars/static/js/954.3d32a4c4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.297773ea.css",
-    "static/js/main.589b85ee.js"
+    "static/js/main.9659037c.js"
   ]
 }
