@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export const StyledSection = styled.section`
   padding-top: 100px;
@@ -7,6 +8,7 @@ export const StyledSection = styled.section`
 
 export const Wrap = styled.div`
   display: flex;
+  width: 224px;
   gap: 8px;
   flex-direction: column;
   justify-content: space-between;
@@ -24,22 +26,12 @@ export const Select = styled.div`
 `;
 
 export const SelectHeader = styled.div`
-  position: relative;
-  box-sizing: border-box;
-  width: 224px;
-  height: 48px;
-  padding: 14px 89px 14px 18px;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
   border-radius: 14px;
   background-color: var(--select-color);
   cursor: pointer;
-
-  &::after {
-    content: ">";
-    position: absolute;
-    right: 14px;
-  }
 `;
 
 export const SelectCurrent = styled.span`
@@ -48,15 +40,14 @@ export const SelectCurrent = styled.span`
   line-height: 1.1;
 `;
 
-export const SelectIcon = styled(KeyboardArrowDownIcon)`
+export const SelectArrowDownIcon = styled(KeyboardArrowDownIcon)`
   width: 20px;
   height: 20px;
-  margin-left: auto;
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+`;
+
+export const SelectArrowUpIcon = styled(KeyboardArrowUpIcon)`
+  width: 20px;
+  height: 20px;
 `;
 
 const setVisibility = props => (props.isToggleOn === 'true' ? 'block' : 'none');
@@ -64,21 +55,32 @@ const setVisibility = props => (props.isToggleOn === 'true' ? 'block' : 'none');
 export const SelectBody = styled.div`
   position: absolute;
   display: ${setVisibility};
-  border: 1px solid grey;
-  border-top: 0;
+  border: 1px solid var(--select-border-color);
+  border-radius: 14px;
   left: 0;
   right: 0;
-  top: 100%;
+  top: 110%;
   z-index: 1;
+  background-color: var(--background-color);
+  box-shadow: 0 4px 36px var(--select-shadow-color);
 `;
+
+const setTextColor = props =>
+  props.name === props.currentValue
+    ? 'var(--primary-text-color)'
+    : 'var(--select-text-color)';
 
 export const SelectItem = styled.div`
   cursor: pointer;
-  padding: 8px;
-  font-size: 18px;
-  line-height: 1.5;
+  padding: 8px 14px;
+  color: ${setTextColor};
+  transition: color var(--tra);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
 
-  &:hover {
-    background-color: var(--button-active-color);
+  &:hover,
+  &:focus {
+    color: var(--primary-text-color);
   }
 `;

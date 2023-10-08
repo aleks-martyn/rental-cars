@@ -34,6 +34,8 @@
   --button-active-color: #0b44cd;
   --info-text-color: rgba(18, 20, 23, 0.5);
   --select-text-color: rgba(18, 20, 23, 0.2);
+  --select-border-color: rgba(18, 20, 23, 0.05);
+  --select-shadow-color: rgba(0, 0, 0, 0.02);
   --conditions-text-color: #363535;
   --car-img-overlay-bg-grad: linear-gradient(
     rgba(47, 48, 58, 0.4),
