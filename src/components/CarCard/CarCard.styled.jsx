@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import styled from '@emotion/styled';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export const CarItem = styled.li`
   border-radius: 14px;
@@ -19,13 +19,13 @@ export const Image = styled.img`
   border-radius: 14px;
 `;
 
-const setBtnColor = (props) =>
-  props.activefavoritebtn === "true"
-    ? "var(--accent-color)"
-    : "var(--background-color)";
-    
-const setIconFill = (props) =>
-  props.activefavoritebtn === "true" ? "var(--accent-color)" : "transparent";
+const setBtnColor = props =>
+  props.activefavoritebtn === 'true'
+    ? 'var(--accent-color)'
+    : 'var(--background-color)';
+
+const setIconFill = props =>
+  props.activefavoritebtn === 'true' ? 'var(--accent-color)' : 'transparent';
 
 export const FavoriteBtn = styled.button`
   position: absolute;

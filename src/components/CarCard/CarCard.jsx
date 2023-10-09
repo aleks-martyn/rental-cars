@@ -16,27 +16,25 @@ import {
 } from './CarCard.styled';
 import { addCarToList, deleteCarFromList } from './localStorageFunctions';
 
-export const Car = car => {
-  const {
-    id,
-    year,
-    make,
-    model,
-    type,
-    img,
-    description,
-    fuelConsumption,
-    engineSize,
-    accessories,
-    functionalities,
-    rentalPrice,
-    rentalCompany,
-    shortAddress,
-    rentalConditions,
-    mileage,
-    openModal,
-  } = car;
-
+export const Car = ({
+  id,
+  year,
+  make,
+  model,
+  type,
+  img,
+  description,
+  fuelConsumption,
+  engineSize,
+  accessories,
+  functionalities,
+  rentalPrice,
+  rentalCompany,
+  shortAddress,
+  rentalConditions,
+  mileage,
+  openModal,
+}) => {
   const [activeFavoriteBtn, setActiveFavoriteBtn] = useState(false);
   const [favoriteCarId, setFavoriteCarId] = useState(null);
   const LOCALSTORAGE_KEY = 'favorite-cars';
