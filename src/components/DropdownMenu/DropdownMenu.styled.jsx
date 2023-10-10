@@ -78,9 +78,4 @@ export const SelectItem = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 1.25;
-
-  &:hover,
-  &:focus {
-    color: var(--primary-text-color);
-  }
 `;
