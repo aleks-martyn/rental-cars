@@ -55,9 +55,9 @@ export const Car = ({
     deleteCarFromList(LOCALSTORAGE_KEY, favoriteCarId);
   }
 
-  const toggleFavoriteBtn = event => {
+  const toggleFavoriteBtn = id => {
     setActiveFavoriteBtn(prev => !prev);
-    setFavoriteCarId(event.currentTarget.dataset.carid);
+    setFavoriteCarId(id.toString());
   };
 
   const shortFunctionalities = functionalities[0]
@@ -91,8 +91,7 @@ export const Car = ({
         <FavoriteBtn
           type="button"
           activefavoritebtn={activeFavoriteBtn.toString()}
-          onClick={toggleFavoriteBtn}
-          data-carid={id}
+          onClick={() => toggleFavoriteBtn(id)}
         >
           <HeartIcon activefavoritebtn={activeFavoriteBtn.toString()} />
         </FavoriteBtn>
