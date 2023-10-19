@@ -4,7 +4,7 @@ export const getFavoriteCars = (carIds, cars) => {
   const filteredCars = [];
 
   for (const car of cars) {
-    if (carIds.includes(car.id.toString())) {
+    if (carIds.includes(car.id)) {
       filteredCars.push(car);
     }
   }
