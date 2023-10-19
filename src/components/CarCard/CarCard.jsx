@@ -14,7 +14,6 @@ import {
   InfoText,
   LearnMoreBtn,
 } from './CarCard.styled';
-import { addCarToList, deleteCarFromList } from './localStorageFunctions';
 
 export const Car = ({
   id,
@@ -34,31 +33,20 @@ export const Car = ({
   rentalConditions,
   mileage,
   openModal,
+  toggleFavorite,
 }) => {
   const [activeFavoriteBtn, setActiveFavoriteBtn] = useState(false);
-  const [favoriteCarId, setFavoriteCarId] = useState(null);
   const LOCALSTORAGE_KEY = 'favorite-cars';
 
   useEffect(() => {
     try {
-      const items = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-      const el = items.find(item => item.id === id.toString());
-      if (el) setActiveFavoriteBtn(true);
+      const storedFavorites = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) ?? [];
+      const isFavorite = storedFavorites.find(item => item.id === id);
+      if (isFavorite) setActiveFavoriteBtn(true);
     } catch (error) {
       console.log(error.message);
     }
   }, [id]);
-
-  if (activeFavoriteBtn) {
-    addCarToList(LOCALSTORAGE_KEY, favoriteCarId);
-  } else {
-    deleteCarFromList(LOCALSTORAGE_KEY, favoriteCarId);
-  }
-
-  const toggleFavoriteBtn = id => {
-    setActiveFavoriteBtn(prev => !prev);
-    setFavoriteCarId(id.toString());
-  };
 
   const shortFunctionalities = functionalities[0]
     .split(' ')
@@ -84,6 +72,11 @@ export const Car = ({
       mileage
     );
 
+  const toggleFavoriteBtn = carId => {
+    toggleFavorite(carId);
+    setActiveFavoriteBtn(prev => !prev);
+  }
+  
   return (
     <CarItem>
       <ImgWrap>
