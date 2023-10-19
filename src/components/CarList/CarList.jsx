@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { Car } from "../CarCard";
-import { Modal } from "../Modal";
-import { Section, List } from "./CarList.styled";
+import { useState } from 'react';
+import { Car } from '../CarCard';
+import { Modal } from '../Modal';
+import { Section, List } from './CarList.styled';
 
-export const CarList = ({ cars }) => {
+export const CarList = ({ cars, toggleFavorite }) => {
   const [showModal, setShowModal] = useState(false);
   const [id, setId] = useState(null);
   const [year, setYear] = useState(null);
-  const [make, setMake] = useState("");
-  const [model, setModel] = useState("");
-  const [type, setType] = useState("");
-  const [img, setImg] = useState("");
-  const [description, setDescription] = useState("");
-  const [fuelConsumption, setFuelConsumption] = useState("");
-  const [engineSize, setEngineSize] = useState("");
+  const [make, setMake] = useState('');
+  const [model, setModel] = useState('');
+  const [type, setType] = useState('');
+  const [img, setImg] = useState('');
+  const [description, setDescription] = useState('');
+  const [fuelConsumption, setFuelConsumption] = useState('');
+  const [engineSize, setEngineSize] = useState('');
   const [accessories, setAccessories] = useState([]);
   const [functionalities, setFunctionalities] = useState([]);
-  const [rentalPrice, setRentalPrice] = useState("");
-  const [shortAddress, setShortAddress] = useState("");
-  const [rentalConditions, setRentalConditions] = useState("");
+  const [rentalPrice, setRentalPrice] = useState('');
+  const [shortAddress, setShortAddress] = useState('');
+  const [rentalConditions, setRentalConditions] = useState('');
   const [mileage, setMileage] = useState(null);
 
   const toggleModal = (
@@ -38,7 +38,7 @@ export const CarList = ({ cars }) => {
     rentalConditions,
     mileage
   ) => {
-    setShowModal((prev) => !prev);
+    setShowModal(prev => !prev);
     setId(id);
     setYear(year);
     setMake(make);
@@ -79,7 +79,7 @@ export const CarList = ({ cars }) => {
               rentalConditions,
               mileage,
             }) => {
-              const shortAddress = address?.split(",").slice(1).join(" ");
+              const shortAddress = address?.split(',').slice(1).join(' ');
 
               return (
                 <Car
@@ -101,6 +101,7 @@ export const CarList = ({ cars }) => {
                   rentalConditions={rentalConditions}
                   mileage={mileage}
                   openModal={toggleModal}
+                  toggleFavorite={toggleFavorite}
                 />
               );
             }
