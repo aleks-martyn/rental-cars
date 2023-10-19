@@ -19,6 +19,7 @@ export default function CatalogPage() {
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
+  const LOCALSTORAGE_KEY = 'favorite-cars';
   let p = page;
 
   useEffect(() => {
@@ -36,6 +37,23 @@ export default function CatalogPage() {
 
   const handleLoadmoreBtnClick = () => {
     setPage((p += 1));
+  };
+
+  const toggleFavorite = carId => {
+    const storedFavorites =
+      JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) ?? [];
+
+    const isFavorite = storedFavorites?.find(item => item.id === carId);
+
+    if (isFavorite) {
+      const index = storedFavorites?.findIndex(item => item.id === carId);
+
+      if (index !== -1) storedFavorites?.splice(index, 1);
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storedFavorites));
+    } else {
+      storedFavorites?.push({ id: carId });
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storedFavorites));
+    }
   };
 
   const allBrands = cars.map(car => car.make);
@@ -67,7 +85,9 @@ export default function CatalogPage() {
       <DropdownFilter onSubmit={handleSubmit} brands={brands} prices={prices} />
       {status === 'pending' && <Spinner />}
       {status === 'rejected' && <h3>{error.message}</h3>}
-      {status === 'resolved' && <CarList cars={cars} />}
+      {status === 'resolved' && (
+        <CarList cars={cars} toggleFavorite={toggleFavorite} />
+      )}
       {page < 4 && <LoadmoreBtn onClick={handleLoadmoreBtnClick} />}
     </>
   );
