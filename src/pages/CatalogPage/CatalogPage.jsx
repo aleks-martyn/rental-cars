@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { fetchCars } from '../../services/api';
-import { CarList } from '../../components/CarList';
-import { LoadmoreBtn } from '../../components/LoadmoreBtn';
-import { Spinner } from '../../components/Loader';
-import { DropdownFilter } from '../../components/DropdownFilter';
+import { fetchCars } from 'services/api';
+import { load, save } from 'js/localStorageFunctions'; 
+import { CarList } from 'components/CarList';
+import { LoadmoreBtn } from 'components/LoadmoreBtn';
+import { Spinner } from 'components/Loader';
+import { DropdownFilter } from 'components/DropdownFilter';
+import { LOCALSTORAGE_KEY } from 'constants';
 
 const prices = [
   { quantity: '30' },
@@ -19,7 +21,6 @@ export default function CatalogPage() {
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
-  const LOCALSTORAGE_KEY = 'favorite-cars';
   let p = page;
 
   useEffect(() => {
@@ -40,8 +41,7 @@ export default function CatalogPage() {
   };
 
   const toggleFavorite = carId => {
-    const storedFavorites =
-      JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) ?? [];
+    const storedFavorites = load(LOCALSTORAGE_KEY);
 
     const isFavorite = storedFavorites?.find(item => item.id === carId);
 
@@ -49,10 +49,10 @@ export default function CatalogPage() {
       const index = storedFavorites?.findIndex(item => item.id === carId);
 
       if (index !== -1) storedFavorites?.splice(index, 1);
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storedFavorites));
+      save(LOCALSTORAGE_KEY, storedFavorites);
     } else {
       storedFavorites?.push({ id: carId });
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storedFavorites));
+      save(LOCALSTORAGE_KEY, storedFavorites);
     }
   };
 
