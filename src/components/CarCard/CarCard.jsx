@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { load } from '../../js/localStorageFunctions';
+import { LOCALSTORAGE_KEY } from 'constants';
 import {
   CarItem,
   ImgWrap,
@@ -36,16 +38,10 @@ export const Car = ({
   toggleFavorite,
 }) => {
   const [activeFavoriteBtn, setActiveFavoriteBtn] = useState(false);
-  const LOCALSTORAGE_KEY = 'favorite-cars';
 
   useEffect(() => {
-    try {
-      const storedFavorites = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) ?? [];
-      const isFavorite = storedFavorites.find(item => item.id === id);
-      if (isFavorite) setActiveFavoriteBtn(true);
-    } catch (error) {
-      console.log(error.message);
-    }
+    const isFavorite = load(LOCALSTORAGE_KEY).find(item => item.id === id);
+    if (isFavorite) setActiveFavoriteBtn(true);
   }, [id]);
 
   const shortFunctionalities = functionalities[0]
@@ -75,8 +71,8 @@ export const Car = ({
   const toggleFavoriteBtn = carId => {
     toggleFavorite(carId);
     setActiveFavoriteBtn(prev => !prev);
-  }
-  
+  };
+
   return (
     <CarItem>
       <ImgWrap>
