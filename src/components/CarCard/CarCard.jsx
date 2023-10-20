@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { load } from '../../js/localStorageFunctions';
+import { load } from 'js/localStorageFunctions';
 import { LOCALSTORAGE_KEY } from 'constants';
 import {
   CarItem,
