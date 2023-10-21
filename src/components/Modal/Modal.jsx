@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Overlay,
   ModalWin,
@@ -19,7 +20,9 @@ import {
   RentalCarLink,
   CloseBtn,
   CloseIcon,
-} from "./Modal.styled";
+} from './Modal.styled';
+
+const modalRoot = document.getElementById('modal-root');
 
 export const Modal = ({
   id,
@@ -40,36 +43,36 @@ export const Modal = ({
   onClose,
 }) => {
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.code === "Escape") onClose();
+    const handleKeyDown = event => {
+      if (event.code === 'Escape') onClose();
     };
 
-    document.body.classList.add("no-scroll");
+    document.body.classList.add('no-scroll');
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      
-      document.body.classList.remove("no-scroll");
+      window.removeEventListener('keydown', handleKeyDown);
+
+      document.body.classList.remove('no-scroll');
     };
   }, [onClose]);
 
-  const modifiedRentalConditions = rentalConditions.split("\n");
-  const minAge = modifiedRentalConditions[0].split(": ");
+  const modifiedRentalConditions = rentalConditions.split('\n');
+  const minAge = modifiedRentalConditions[0].split(': ');
 
-  const mileageArr = mileage.toString().split("");
-  mileageArr.splice(1, 0, ",");
-  const modifiedMileage = mileageArr.join("");
+  const mileageArr = mileage.toString().split('');
+  mileageArr.splice(1, 0, ',');
+  const modifiedMileage = mileageArr.join('');
 
-  const rentalPriceArr = rentalPrice.split("");
+  const rentalPriceArr = rentalPrice.split('');
   rentalPriceArr.splice(0, 1);
-  rentalPriceArr.push("$");
-  const modifiedRentalPrice = rentalPriceArr.join("");
+  rentalPriceArr.push('$');
+  const modifiedRentalPrice = rentalPriceArr.join('');
 
-  return (
+  return createPortal(
     <Overlay
-      onClick={(event) => {
+      onClick={event => {
         if (event.currentTarget === event.target) onClose();
       }}
     >
@@ -141,14 +144,14 @@ export const Modal = ({
 
               <ConditionsTextWrap>
                 <ConditionsText>
-                  Mileage:{" "}
+                  Mileage:{' '}
                   <ConditionsAccent>{modifiedMileage}</ConditionsAccent>
                 </ConditionsText>
               </ConditionsTextWrap>
 
               <ConditionsTextWrap>
                 <ConditionsText>
-                  Price:{" "}
+                  Price:{' '}
                   <ConditionsAccent>{modifiedRentalPrice}</ConditionsAccent>
                 </ConditionsText>
               </ConditionsTextWrap>
@@ -162,6 +165,7 @@ export const Modal = ({
           <CloseIcon />
         </CloseBtn>
       </ModalWin>
-    </Overlay>
+    </Overlay>,
+    modalRoot
   );
 };

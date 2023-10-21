@@ -12,14 +12,13 @@ export const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1200;
+  
 `;
 
 export const ModalWin = styled.div`
   position: relative;
   box-sizing: border-box;
   width: 541px;
-  min-height: 752px;
   padding: 40px;
   border-radius: 24px;
   background-color: var(--background-color);
