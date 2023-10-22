@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/rental-cars/static/css/main.85533047.css",
-    "main.js": "/rental-cars/static/js/main.daaa2087.js",
+    "main.css": "/rental-cars/static/css/main.1e467370.css",
+    "main.js": "/rental-cars/static/js/main.c0c69feb.js",
     "static/js/929.718ad4da.chunk.js": "/rental-cars/static/js/929.718ad4da.chunk.js",
     "static/js/549.5d59e032.chunk.js": "/rental-cars/static/js/549.5d59e032.chunk.js",
     "static/js/527.57e11400.chunk.js": "/rental-cars/static/js/527.57e11400.chunk.js",
     "static/js/593.0c935226.chunk.js": "/rental-cars/static/js/593.0c935226.chunk.js",
-    "static/js/867.4953c99c.chunk.js": "/rental-cars/static/js/867.4953c99c.chunk.js",
+    "static/js/867.5d2029f3.chunk.js": "/rental-cars/static/js/867.5d2029f3.chunk.js",
     "static/media/Manrope-SemiBold.ttf": "/rental-cars/static/media/Manrope-SemiBold.310f108cc524df0e5ffc.ttf",
     "static/media/Manrope-Medium.ttf": "/rental-cars/static/media/Manrope-Medium.08894ccb04665d1a9d53.ttf",
     "static/media/Manrope-Regular.ttf": "/rental-cars/static/media/Manrope-Regular.a9b9e09fe6b69741f316.ttf",
     "index.html": "/rental-cars/index.html",
-    "main.85533047.css.map": "/rental-cars/static/css/main.85533047.css.map",
-    "main.daaa2087.js.map": "/rental-cars/static/js/main.daaa2087.js.map",
+    "main.1e467370.css.map": "/rental-cars/static/css/main.1e467370.css.map",
+    "main.c0c69feb.js.map": "/rental-cars/static/js/main.c0c69feb.js.map",
     "929.718ad4da.chunk.js.map": "/rental-cars/static/js/929.718ad4da.chunk.js.map",
     "549.5d59e032.chunk.js.map": "/rental-cars/static/js/549.5d59e032.chunk.js.map",
     "527.57e11400.chunk.js.map": "/rental-cars/static/js/527.57e11400.chunk.js.map",
     "593.0c935226.chunk.js.map": "/rental-cars/static/js/593.0c935226.chunk.js.map",
-    "867.4953c99c.chunk.js.map": "/rental-cars/static/js/867.4953c99c.chunk.js.map"
+    "867.5d2029f3.chunk.js.map": "/rental-cars/static/js/867.5d2029f3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.85533047.css",
-    "static/js/main.daaa2087.js"
+    "static/css/main.1e467370.css",
+    "static/js/main.c0c69feb.js"
   ]
 }
