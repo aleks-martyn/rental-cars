@@ -79,7 +79,7 @@ export const CarList = ({ cars, toggleFavorite }) => {
               rentalConditions,
               mileage,
             }) => {
-              const shortAddress = address?.split(',').slice(1).join(' ');
+              const shortAddress = address?.split(', ').slice(1);
 
               return (
                 <Car

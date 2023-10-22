@@ -99,7 +99,8 @@ export const Car = ({
 
         <InfoOtherWrap>
           <OtherDataWrap>
-            <InfoText>{shortAddress}</InfoText>
+            <InfoText>{shortAddress[0]}</InfoText>
+            <InfoText>{shortAddress[1]}</InfoText>
             <InfoText>{rentalCompany}</InfoText>
           </OtherDataWrap>
 

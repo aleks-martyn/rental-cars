@@ -88,8 +88,9 @@ export const Modal = ({
 
           <AddDataWrap>
             <OtherDataWrap>
-              <InfoText>{shortAddress}</InfoText>
-              <InfoText>Id. {id}</InfoText>
+              <InfoText>{shortAddress[0]}</InfoText>
+              <InfoText>{shortAddress[1]}</InfoText>
+              <InfoText>Id: {id}</InfoText>
               <InfoText>Year: {year}</InfoText>
               <InfoText>Type: {type}</InfoText>
             </OtherDataWrap>
