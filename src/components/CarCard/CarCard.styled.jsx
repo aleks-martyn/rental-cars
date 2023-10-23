@@ -69,7 +69,6 @@ export const InfoOtherWrap = styled.div`
 
 export const OtherDataWrap = styled.div`
   display: flex;
-  gap: 6px;
 `;
 
 export const MainInfoText = styled.p`
@@ -86,10 +85,21 @@ export const ModelName = styled.span`
 `;
 
 export const InfoText = styled.p`
+  padding: 0 6px;
+  border-right: 1px solid var(--info-border-color);
   font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
   color: var(--info-text-color);
+
+  :first-of-type {
+    padding-left: 0;
+  }
+
+  :last-of-type {
+    padding-right: 0;
+    border-right: none;
+  }
 `;
 
 export const LearnMoreBtn = styled.button`
