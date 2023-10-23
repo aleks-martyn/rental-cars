@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { Button } from "@mui/material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import styled from '@emotion/styled';
+import { Button } from '@mui/material';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 export const Overlay = styled.div`
   position: fixed;
@@ -12,7 +12,6 @@ export const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-  
 `;
 
 export const ModalWin = styled.div`
@@ -58,14 +57,24 @@ export const AddDataWrap = styled.div`
 
 export const OtherDataWrap = styled.div`
   display: flex;
-  gap: 6px;
 `;
 
 export const InfoText = styled.p`
+  padding: 0 6px;
+  border-right: 1px solid var(--info-border-color);
   font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
   color: var(--info-text-color);
+
+  :first-of-type {
+    padding-left: 0;
+  }
+
+  :last-of-type {
+    padding-right: 0;
+    border-right: none;
+  }
 `;
 
 export const Description = styled.p`
@@ -89,6 +98,7 @@ export const ConditionsTextWrap = styled.div`
   min-width: 86px;
   height: 32px;
   padding: 7px 14px;
+  border-radius: 35px;
   background-color: var(--conditions-bg-color);
 `;
 
