@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchCars } from 'services/api';
-import { load, save } from 'js/localStorageFunctions'; 
+import { load, save } from 'js/localStorageFunctions';
 import { CarList } from 'components/CarList';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
@@ -21,7 +21,6 @@ export default function CatalogPage() {
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
-  let p = page;
 
   useEffect(() => {
     fetchCars(page)
@@ -35,10 +34,6 @@ export default function CatalogPage() {
         setStatus('rejected');
       });
   }, [page]);
-
-  const handleLoadmoreBtnClick = () => {
-    setPage((p += 1));
-  };
 
   const toggleFavorite = carId => {
     const storedFavorites = load(LOCALSTORAGE_KEY);
@@ -88,7 +83,13 @@ export default function CatalogPage() {
       {status === 'resolved' && (
         <CarList cars={cars} toggleFavorite={toggleFavorite} />
       )}
-      {page < 4 && <LoadmoreBtn onClick={handleLoadmoreBtnClick} />}
+      {page < 4 && (
+        <LoadmoreBtn
+          onClick={() => {
+            setPage(prev => prev + 1);
+          }}
+        />
+      )}
     </>
   );
 }
