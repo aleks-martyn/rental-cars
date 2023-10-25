@@ -69,6 +69,8 @@ export const InfoOtherWrap = styled.div`
 
 export const OtherDataWrap = styled.div`
   display: flex;
+  width: 274px;
+  flex-wrap: nowrap;
 `;
 
 export const MainInfoText = styled.p`
@@ -87,6 +89,7 @@ export const ModelName = styled.span`
 export const InfoText = styled.p`
   padding: 0 6px;
   border-right: 1px solid var(--info-border-color);
+  white-space: nowrap;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
@@ -99,6 +102,8 @@ export const InfoText = styled.p`
   :last-of-type {
     padding-right: 0;
     border-right: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 

@@ -47,8 +47,8 @@ export default function FavoritesPage() {
 
       if (index !== -1) storedFavorites?.splice(index, 1);
       save(LOCALSTORAGE_KEY, storedFavorites);
-      const ids = storedFavorites?.map(item => item.id);
 
+      const ids = storedFavorites?.map(item => item.id);
       setFavoriteCars(getFavoriteCars(ids, allCars));
     }
   };
