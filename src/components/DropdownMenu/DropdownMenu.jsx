@@ -1,56 +1,17 @@
-import { useState } from 'react';
-import {
-  StyledSection,
-  Wrap,
-  Subtitle,
-  Select,
-  SelectHeader,
-  SelectCurrent,
-  SelectArrowDownIcon,
-  SelectArrowUpIcon,
-  SelectBody,
-  SelectItem,
-} from './DropdownMenu.styled';
+import { CustomSelect } from 'components/CustomSelect';
+import { prices } from 'constants';
+import { Wrap } from './DropdownMenu.styled';
 
-export const DropdownMenu = () => {
-  const [isToggleOn, setIsToggleOn] = useState(false);
-  const [currentValue, setCurrentValue] = useState('Enter the text');
-
-  const handleClick = () => {
-    setIsToggleOn(prev => !prev);
-  };
-
-  const brands = [{ name: 'Audi' }, { name: 'Volvo' }, { name: 'Buick' }];
-
+export const DropdownMenu = ({ brands }) => {
   return (
-    <StyledSection>
-      <Wrap>
-        <Subtitle>Car brand</Subtitle>
+    <Wrap>
+      <CustomSelect
+        title={'Car brand'}
+        text={'Enter the text'}
+        items={brands}
+      />
 
-        <Select>
-          <SelectHeader onClick={handleClick}>
-            <SelectCurrent>{currentValue}</SelectCurrent>
-            {isToggleOn ? <SelectArrowUpIcon /> : <SelectArrowDownIcon />}
-          </SelectHeader>
-
-          <SelectBody isToggleOn={isToggleOn.toString()}>
-            {brands.map(({ name }) => (
-              <SelectItem
-                key={name}
-                tabIndex={1}
-                currentValue={currentValue}
-                name={name}
-                onFocus={e => {
-                  setCurrentValue(e.target.textContent);
-                  setIsToggleOn(false);
-                }}
-              >
-                {name}
-              </SelectItem>
-            ))}
-          </SelectBody>
-        </Select>
-      </Wrap>
-    </StyledSection>
+      <CustomSelect title={'Price / 1 hour'} text={'To $'} items={prices} />
+    </Wrap>
   );
 };
