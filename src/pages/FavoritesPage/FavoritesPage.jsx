@@ -28,28 +28,27 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    const ids = load(LOCALSTORAGE_KEY).map(item => item.id);
+    const storedFavorites = load(LOCALSTORAGE_KEY);
 
-    setFavoriteCars(getFavoriteCars(ids, allCars));
+    setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
     setError(null);
     setStatus('resolved');
   }, [allCars]);
 
   const handleLoadmoreBtnClick = () => console.log('Under development');
 
-  const toggleFavorite = carId => {
+  const toggleFavorite = id => {
     const storedFavorites = load(LOCALSTORAGE_KEY);
 
-    const isFavorite = storedFavorites?.find(item => item.id === carId);
+    const isFavorite = storedFavorites?.find(carId => carId === id);
 
     if (isFavorite) {
-      const index = storedFavorites?.findIndex(item => item.id === carId);
+      const index = storedFavorites?.findIndex(carId => carId === id);
 
       if (index !== -1) storedFavorites?.splice(index, 1);
       save(LOCALSTORAGE_KEY, storedFavorites);
 
-      const ids = storedFavorites?.map(item => item.id);
-      setFavoriteCars(getFavoriteCars(ids, allCars));
+      setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
     }
   };
 

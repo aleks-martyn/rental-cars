@@ -27,18 +27,18 @@ export default function CatalogPage() {
       });
   }, [page]);
 
-  const toggleFavorite = carId => {
+  const toggleFavorite = id => {
     const storedFavorites = load(LOCALSTORAGE_KEY);
 
-    const isFavorite = storedFavorites?.find(item => item.id === carId);
+    const isFavorite = storedFavorites?.find(carId => carId === id);
 
     if (isFavorite) {
-      const index = storedFavorites?.findIndex(item => item.id === carId);
+      const index = storedFavorites?.findIndex(carId => carId === id);
 
       if (index !== -1) storedFavorites?.splice(index, 1);
       save(LOCALSTORAGE_KEY, storedFavorites);
     } else {
-      storedFavorites?.push({ id: carId });
+      storedFavorites?.push(id);
       save(LOCALSTORAGE_KEY, storedFavorites);
     }
   };

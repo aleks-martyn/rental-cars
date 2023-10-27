@@ -40,7 +40,7 @@ export const Car = ({
   const [activeFavoriteBtn, setActiveFavoriteBtn] = useState(false);
 
   useEffect(() => {
-    const isFavorite = load(LOCALSTORAGE_KEY).find(item => item.id === id);
+    const isFavorite = load(LOCALSTORAGE_KEY).find(carId => carId === id);
     if (isFavorite) setActiveFavoriteBtn(true);
   }, [id]);
 
