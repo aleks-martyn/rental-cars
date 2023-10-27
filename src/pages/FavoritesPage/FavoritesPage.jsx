@@ -53,9 +53,11 @@ export default function FavoritesPage() {
     }
   };
 
+  const brands = ['Audi', 'Volvo', 'Buick'];
+
   return (
     <>
-      <DropdownMenu />
+      <DropdownMenu brands={brands} />
       {status === 'pending' && <Spinner />}
       {status === 'rejected' && <h3>{error.message}</h3>}
       {status === 'resolved' && (
