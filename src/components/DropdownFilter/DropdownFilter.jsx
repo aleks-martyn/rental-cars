@@ -1,3 +1,4 @@
+import { prices } from 'constants';
 import {
   StyledSection,
   StyledForm,
@@ -10,10 +11,9 @@ import {
   StyledLabel,
   StyledInput,
   FormBtn,
-} from "./DropdownFilter.styled";
+} from './DropdownFilter.styled';
 
-export const DropdownFilter = ({ onSubmit, brands, prices }) => {
-
+export const DropdownFilter = ({ onSubmit, brands }) => {
   return (
     <StyledSection>
       <StyledForm name="car-search-form" onSubmit={onSubmit}>
@@ -22,9 +22,9 @@ export const DropdownFilter = ({ onSubmit, brands, prices }) => {
 
           <StyledSelect name="cars" id="car-select">
             <option value="">Enter the text</option>
-            {brands.map(({ name }) => (
-              <StyledOption key={name} value={name}>
-                {name}
+            {brands.map(brand => (
+              <StyledOption key={brand} value={brand}>
+                {brand}
               </StyledOption>
             ))}
           </StyledSelect>
@@ -35,9 +35,9 @@ export const DropdownFilter = ({ onSubmit, brands, prices }) => {
 
           <StyledSelect name="prices" id="price-select">
             <option value="">To $</option>
-            {prices.map(({ quantity }) => (
-              <StyledOption key={quantity} value={quantity}>
-                {quantity}
+            {prices.map(price => (
+              <StyledOption key={price} value={price}>
+                {price}
               </StyledOption>
             ))}
           </StyledSelect>
