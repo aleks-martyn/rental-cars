@@ -1,20 +1,12 @@
 import { useEffect, useState } from 'react';
 import { fetchCars } from 'services/api';
+import { getUniqueBrands } from 'js/getUniqueBrands';
 import { load, save } from 'js/localStorageFunctions';
 import { CarList } from 'components/CarList';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
 import { DropdownFilter } from 'components/DropdownFilter';
 import { LOCALSTORAGE_KEY } from 'constants';
-
-const prices = [
-  { quantity: '30' },
-  { quantity: '40' },
-  { quantity: '50' },
-  { quantity: '60' },
-  { quantity: '70' },
-  { quantity: '80' },
-];
 
 export default function CatalogPage() {
   const [cars, setCars] = useState([]);
@@ -51,16 +43,6 @@ export default function CatalogPage() {
     }
   };
 
-  const allBrands = cars.map(car => car.make);
-
-  const uniqueBrands = allBrands.filter(
-    (brand, index, array) => array.indexOf(brand) === index
-  );
-
-  const brands = uniqueBrands.map(brand => {
-    return { name: brand };
-  });
-
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -77,7 +59,7 @@ export default function CatalogPage() {
 
   return (
     <>
-      <DropdownFilter onSubmit={handleSubmit} brands={brands} prices={prices} />
+      <DropdownFilter onSubmit={handleSubmit} brands={getUniqueBrands(cars)} />
       {status === 'pending' && <Spinner />}
       {status === 'rejected' && <h3>{error.message}</h3>}
       {status === 'resolved' && (
