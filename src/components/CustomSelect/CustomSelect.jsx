@@ -16,7 +16,7 @@ export const CustomSelect = ({ title, text, items }) => {
   const [currentValue, setCurrentValue] = useState(text);
 
   return (
-    <SelectWrap>
+    <SelectWrap id={title}>
       <Subtitle>{title}</Subtitle>
 
       <Select>

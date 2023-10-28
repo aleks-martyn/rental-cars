@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+const selectWidth = id => (id === 'Car brand' ? '224px' : '125px');
+
 export const SelectWrap = styled.div`
   display: flex;
-  width: 224px;
+  width: ${({ id }) => selectWidth(id)};
   gap: 8px;
   flex-direction: column;
   justify-content: space-between;
@@ -59,6 +61,7 @@ export const SelectBody = styled.div`
   z-index: 1;
   background-color: var(--background-color);
   box-shadow: 0 4px 36px var(--select-shadow-color);
+  overflow: hidden;
 `;
 
 const setTextColor = props =>
@@ -70,8 +73,12 @@ export const SelectItem = styled.div`
   cursor: pointer;
   padding: 8px 14px;
   color: ${setTextColor};
-  transition: color var(--tra);
   font-weight: 500;
   font-size: 16px;
   line-height: 1.25;
+
+  &:hover {
+    color: var(--button-text-color);
+    background-color: var(--accent-color);
+  }
 `;
