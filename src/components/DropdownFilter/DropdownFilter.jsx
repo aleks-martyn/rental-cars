@@ -49,12 +49,12 @@ export const DropdownFilter = ({ onSubmit, brands }) => {
           <InputWrap>
             <InputInnerWrap>
               <StyledLabel htmlFor="from">From</StyledLabel>
-              <StyledInput type="number" name="from" id="from" />
+              <StyledInput type="number" min={0} name="from" id="from" />
             </InputInnerWrap>
 
             <InputInnerWrap>
               <StyledLabel htmlFor="to">To</StyledLabel>
-              <StyledInput type="number" name="to" id="to" />
+              <StyledInput type="number" min={0} name="to" id="to" />
             </InputInnerWrap>
           </InputWrap>
         </Wrap>

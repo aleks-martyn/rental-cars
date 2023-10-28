@@ -58,6 +58,12 @@ export const StyledLabel = styled.label`
   left: 14px;
 `;
 
+const borderRadius = name =>
+  name === 'from' ? '14px 0 0 14px' : '0 14px 14px 0';
+
+const borderRightColor = name =>
+  name === 'from' ? 'var(--input-border-color)' : 'none';
+
 export const StyledInput = styled.input`
   box-sizing: border-box;
   width: 160px;
@@ -65,7 +71,8 @@ export const StyledInput = styled.input`
   padding: 14px 18px;
   padding-left: 60px;
   border: none;
-  border-radius: 14px;
+  border-right: 1px solid ${({ name }) => borderRightColor(name)};
+  border-radius: ${({ name }) => borderRadius(name)};
   background-color: var(--select-color);
 `;
 
