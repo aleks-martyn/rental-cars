@@ -50,15 +50,28 @@ export const SelectArrowUpIcon = styled(KeyboardArrowUpIcon)`
 
 const setVisibility = props => (props.isToggleOn === 'true' ? 'block' : 'none');
 
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: ${setVisibility};
+`;
+
 export const SelectBody = styled.div`
   position: absolute;
-  display: ${setVisibility};
   border: 1px solid var(--select-border-color);
   border-radius: 14px;
-  left: 0;
-  right: 0;
-  top: 110%;
-  z-index: 1;
+  left: ${props => {
+    return props?.left;
+  }}px;
+  width: ${props => {
+    return props?.width;
+  }}px;
+  top: ${props => {
+    return props?.top;
+  }}px;
   background-color: var(--background-color);
   box-shadow: 0 4px 36px var(--select-shadow-color);
   overflow: hidden;
