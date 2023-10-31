@@ -15,7 +15,7 @@ import {
 
 const selectBodyRoot = document.getElementById('select-body-root');
 
-export const CustomSelect = ({ title, text, items }) => {
+export const CustomSelect = ({ title, text, items, onValueChange }) => {
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [currentValue, setCurrentValue] = useState(text);
   const [left, setLeft] = useState(null);
@@ -53,7 +53,7 @@ export const CustomSelect = ({ title, text, items }) => {
             }}
           >
             <SelectBody left={left} top={topSelect} width={width}>
-              {items.map(item => (
+              {items?.map(item => (
                 <SelectItem
                   key={item}
                   tabIndex={1}
@@ -61,6 +61,7 @@ export const CustomSelect = ({ title, text, items }) => {
                   item={item}
                   onClick={e => {
                     setCurrentValue(e.target.textContent);
+                    onValueChange(e.target.textContent);
                     setIsToggleOn(false);
                   }}
                 >
