@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchAllCars } from 'services/api';
 import { CarList } from 'components/CarList';
 import { getFavoriteCars } from 'js/getFavoriteCars';
+import { getUniqueBrands } from 'js/getUniqueBrands';
 import { load, save } from 'js/localStorageFunctions';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
@@ -11,8 +12,12 @@ import { LOCALSTORAGE_KEY } from 'constants';
 export default function FavoritesPage() {
   const [allCars, setAllCars] = useState([]);
   const [favoriteCars, setFavoriteCars] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
+  console.log(selectedBrand);
+  console.log(selectedPrice);
 
   useEffect(() => {
     fetchAllCars()
@@ -52,11 +57,21 @@ export default function FavoritesPage() {
     }
   };
 
-  const brands = ['Audi', 'Volvo', 'Buick'];
+  const handleBrandChange = brand => {
+    setSelectedBrand(brand);
+  };
+
+  const handlePriceChange = price => {
+    setSelectedPrice(price);
+  };
 
   return (
     <>
-      <DropdownMenu brands={brands} />
+      <DropdownMenu
+        brands={getUniqueBrands(favoriteCars)}
+        onBrandChange={handleBrandChange}
+        onPriceChange={handlePriceChange}
+      />
       {status === 'pending' && <Spinner />}
       {status === 'rejected' && <h3>{error.message}</h3>}
       {status === 'resolved' && (
