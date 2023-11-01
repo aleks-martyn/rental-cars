@@ -1,50 +1,57 @@
 import { CustomSelect } from 'components/CustomSelect';
+import { FilterInput } from 'components/FilterInput';
 import { prices } from 'constants';
 import {
   Wrap,
   InputOuterWrap,
   Subtitle,
   InputWrap,
-  InputInnerWrap,
-  StyledLabel,
-  StyledInput,
   FormBtn,
 } from './DropdownMenu.styled';
 
-export const DropdownMenu = ({ brands, onBrandChange, onPriceChange }) => {
-  return (
-    <Wrap>
-      <CustomSelect
-        title="Car brand"
-        text="Enter the text"
-        items={brands}
-        onValueChange={onBrandChange}
-      />
+export const DropdownMenu = ({
+  brands,
+  onFilterChange,
+  selectedBrand,
+  selectedPrice,
+  minMileage,
+  maxMileage,
+}) => (
+  <Wrap>
+    <CustomSelect
+      title="Car brand"
+      id="brand"
+      items={brands}
+      onValueChange={onFilterChange}
+      currentValue={selectedBrand}
+    />
 
-      <CustomSelect
-        title="Price / 1 hour"
-        text="To $"
-        items={prices}
-        onValueChange={onPriceChange}
-      />
+    <CustomSelect
+      title="Price / 1 hour"
+      id="price"
+      items={prices}
+      onValueChange={onFilterChange}
+      currentValue={selectedPrice}
+    />
 
-      <InputOuterWrap>
-        <Subtitle>Car mileage / km</Subtitle>
+    <InputOuterWrap>
+      <Subtitle>Car mileage / km</Subtitle>
 
-        <InputWrap>
-          <InputInnerWrap>
-            <StyledLabel htmlFor="from">From</StyledLabel>
-            <StyledInput type="number" min={0} name="from" id="from" />
-          </InputInnerWrap>
+      <InputWrap>
+        <FilterInput
+          id="min"
+          currentValue={minMileage}
+          onFilterChange={onFilterChange}
+        />
 
-          <InputInnerWrap>
-            <StyledLabel htmlFor="to">To</StyledLabel>
-            <StyledInput type="number" min={0} name="to" id="to" />
-          </InputInnerWrap>
-        </InputWrap>
-      </InputOuterWrap>
+        <FilterInput
+          id="max"
+          currentValue={maxMileage}
+          onFilterChange={onFilterChange}
+        />
+      </InputWrap>
+    </InputOuterWrap>
 
-      <FormBtn type="button">Reset</FormBtn>
-    </Wrap>
-  );
-};
+    <FormBtn type="button">Reset</FormBtn>
+  </Wrap>
+);
