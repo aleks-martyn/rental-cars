@@ -6,7 +6,7 @@ import { CarList } from 'components/CarList';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
 import { DropdownFilter } from 'components/DropdownFilter';
-import { LOCALSTORAGE_KEY } from 'constants';
+import { FAVORITES_KEY } from 'constants';
 
 export default function CatalogPage() {
   const [cars, setCars] = useState([]);
@@ -28,7 +28,7 @@ export default function CatalogPage() {
   }, [page]);
 
   const toggleFavorite = id => {
-    const storedFavorites = load(LOCALSTORAGE_KEY);
+    const storedFavorites = load(FAVORITES_KEY) ?? [];
 
     const isFavorite = storedFavorites?.find(carId => carId === id);
 
@@ -36,10 +36,10 @@ export default function CatalogPage() {
       const index = storedFavorites?.findIndex(carId => carId === id);
 
       if (index !== -1) storedFavorites?.splice(index, 1);
-      save(LOCALSTORAGE_KEY, storedFavorites);
+      save(FAVORITES_KEY, storedFavorites);
     } else {
       storedFavorites?.push(id);
-      save(LOCALSTORAGE_KEY, storedFavorites);
+      save(FAVORITES_KEY, storedFavorites);
     }
   };
 
