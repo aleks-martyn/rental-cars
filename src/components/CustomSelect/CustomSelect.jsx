@@ -15,9 +15,8 @@ import {
 
 const selectBodyRoot = document.getElementById('select-body-root');
 
-export const CustomSelect = ({ title, text, items, onValueChange }) => {
+export const CustomSelect = ({ title, id, items, onValueChange, currentValue }) => {
   const [isToggleOn, setIsToggleOn] = useState(false);
-  const [currentValue, setCurrentValue] = useState(text);
   const [left, setLeft] = useState(null);
   const [top, setTop] = useState(null);
   const [width, setWidth] = useState(null);
@@ -25,7 +24,7 @@ export const CustomSelect = ({ title, text, items, onValueChange }) => {
   const topSelect = top + height + 4;
 
   return (
-    <SelectWrap id={title}>
+    <SelectWrap id={id}>
       <Subtitle>{title}</Subtitle>
 
       <Select
@@ -48,8 +47,8 @@ export const CustomSelect = ({ title, text, items, onValueChange }) => {
         {createPortal(
           <Overlay
             isToggleOn={isToggleOn.toString()}
-            onClick={event => {
-              if (event.currentTarget === event.target) setIsToggleOn(false);
+            onClick={e => {
+              if (e.currentTarget === e.target) setIsToggleOn(false);
             }}
           >
             <SelectBody left={left} top={topSelect} width={width}>
@@ -60,8 +59,8 @@ export const CustomSelect = ({ title, text, items, onValueChange }) => {
                   currentValue={currentValue}
                   item={item}
                   onClick={e => {
-                    setCurrentValue(e.target.textContent);
-                    onValueChange(e.target.textContent);
+                    const { textContent } = e.target;
+                    onValueChange(id, textContent);
                     setIsToggleOn(false);
                   }}
                 >

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-const selectWidth = id => (id === 'Car brand' ? '224px' : '125px');
+const selectWidth = id => (id === 'brand' ? '224px' : '125px');
 
 export const SelectWrap = styled.div`
   display: flex;
