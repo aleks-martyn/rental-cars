@@ -7,17 +7,23 @@ import { load, save } from 'js/localStorageFunctions';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
 import { DropdownMenu } from 'components/DropdownMenu';
-import { LOCALSTORAGE_KEY } from 'constants';
+import {
+  FAVORITES_KEY,
+  SELECTED_BRAND,
+  SELECTED_PRICE,
+  MIN_MILEAGE,
+  MAX_MILEAGE,
+} from 'constants';
 
 export default function FavoritesPage() {
   const [allCars, setAllCars] = useState([]);
   const [favoriteCars, setFavoriteCars] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedPrice, setSelectedPrice] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('Enter the text');
+  const [selectedPrice, setSelectedPrice] = useState('To $');
+  const [minMileage, setMinMileage] = useState('');
+  const [maxMileage, setMaxMileage] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
-  console.log(selectedBrand);
-  console.log(selectedPrice);
 
   useEffect(() => {
     fetchAllCars()
@@ -33,17 +39,37 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    const storedFavorites = load(LOCALSTORAGE_KEY);
+    const storedFavorites = load(FAVORITES_KEY) ?? [];
 
     setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
     setError(null);
     setStatus('resolved');
   }, [allCars]);
 
-  const handleLoadmoreBtnClick = () => console.log('Under development');
+  useEffect(() => {
+    const savedBrand = load(SELECTED_BRAND);
+    if (savedBrand) {
+      setSelectedBrand(savedBrand);
+    }
+
+    const savedPrice = load(SELECTED_PRICE);
+    if (savedPrice) {
+      setSelectedPrice(savedPrice);
+    }
+
+    const savedMinMileage = load(MIN_MILEAGE);
+    if (savedMinMileage) {
+      setMinMileage(savedMinMileage);
+    }
+
+    const savedMaxMileage = load(MAX_MILEAGE);
+    if (savedMaxMileage) {
+      setMaxMileage(savedMaxMileage);
+    }
+  }, []);
 
   const toggleFavorite = id => {
-    const storedFavorites = load(LOCALSTORAGE_KEY);
+    const storedFavorites = load(FAVORITES_KEY) ?? [];
 
     const isFavorite = storedFavorites?.find(carId => carId === id);
 
@@ -51,26 +77,50 @@ export default function FavoritesPage() {
       const index = storedFavorites?.findIndex(carId => carId === id);
 
       if (index !== -1) storedFavorites?.splice(index, 1);
-      save(LOCALSTORAGE_KEY, storedFavorites);
+      save(FAVORITES_KEY, storedFavorites);
 
       setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
     }
   };
 
-  const handleBrandChange = brand => {
-    setSelectedBrand(brand);
+  const handleChange = (id, value) => {
+    switch (id) {
+      case 'brand':
+        setSelectedBrand(value);
+        save(SELECTED_BRAND, value);
+        break;
+
+      case 'price':
+        setSelectedPrice(value);
+        save(SELECTED_PRICE, value);
+        break;
+
+      case 'min':
+        setMinMileage(value);
+        save(MIN_MILEAGE, value);
+        break;
+
+      case 'max':
+        setMaxMileage(value);
+        save(MAX_MILEAGE, value);
+        break;
+
+      default:
+        return;
+    }
   };
 
-  const handlePriceChange = price => {
-    setSelectedPrice(price);
-  };
+  const handleLoadmoreBtnClick = () => console.log('Under development');
 
   return (
     <>
       <DropdownMenu
         brands={getUniqueBrands(favoriteCars)}
-        onBrandChange={handleBrandChange}
-        onPriceChange={handlePriceChange}
+        onFilterChange={handleChange}
+        selectedBrand={selectedBrand}
+        selectedPrice={selectedPrice}
+        minMileage={minMileage}
+        maxMileage={maxMileage}
       />
       {status === 'pending' && <Spinner />}
       {status === 'rejected' && <h3>{error.message}</h3>}
