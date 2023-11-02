@@ -3,7 +3,7 @@ import { fetchAllCars } from 'services/api';
 import { CarList } from 'components/CarList';
 import { getFavoriteCars } from 'js/getFavoriteCars';
 import { getUniqueBrands } from 'js/getUniqueBrands';
-import { load, save } from 'js/localStorageFunctions';
+import { load, save, remove } from 'js/localStorageFunctions';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
 import { DropdownMenu } from 'components/DropdownMenu';
@@ -110,6 +110,17 @@ export default function FavoritesPage() {
     }
   };
 
+  const handleReset = () => {
+    setSelectedBrand('Enter the text');
+    setSelectedPrice('To $');
+    setMinMileage('');
+    setMaxMileage('');
+    remove(SELECTED_BRAND);
+    remove(SELECTED_PRICE);
+    remove(MIN_MILEAGE);
+    remove(MAX_MILEAGE);
+  }
+
   const handleLoadmoreBtnClick = () => console.log('Under development');
 
   return (
@@ -117,6 +128,7 @@ export default function FavoritesPage() {
       <DropdownMenu
         brands={getUniqueBrands(favoriteCars)}
         onFilterChange={handleChange}
+        onFilterReset={handleReset}
         selectedBrand={selectedBrand}
         selectedPrice={selectedPrice}
         minMileage={minMileage}

@@ -12,6 +12,7 @@ import {
 export const DropdownMenu = ({
   brands,
   onFilterChange,
+  onFilterReset,
   selectedBrand,
   selectedPrice,
   minMileage,
@@ -40,18 +41,22 @@ export const DropdownMenu = ({
       <InputWrap>
         <FilterInput
           id="min"
+          label="From"
           currentValue={minMileage}
           onFilterChange={onFilterChange}
         />
 
         <FilterInput
           id="max"
+          label="To"
           currentValue={maxMileage}
           onFilterChange={onFilterChange}
         />
       </InputWrap>
     </InputOuterWrap>
 
-    <FormBtn type="button">Reset</FormBtn>
+    <FormBtn type="button" onClick={onFilterReset}>
+      Reset
+    </FormBtn>
   </Wrap>
 );

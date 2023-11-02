@@ -15,3 +15,5 @@ export const save = (key, value) => {
     console.error('Set state error: ', error.message);
   }
 };
+
+export const remove = key => localStorage.removeItem(key);
