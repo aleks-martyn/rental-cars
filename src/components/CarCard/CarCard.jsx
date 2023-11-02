@@ -96,7 +96,7 @@ export const Car = ({
             {year}
           </MainInfoText>
 
-          <MainInfoText>{rentalPrice}</MainInfoText>
+          <MainInfoText>${rentalPrice}</MainInfoText>
         </InfoInnerWrap>
 
         <InfoOtherWrap>

@@ -65,11 +65,6 @@ export const Modal = ({
   mileageArr.splice(1, 0, ',');
   const modifiedMileage = mileageArr.join('');
 
-  const rentalPriceArr = rentalPrice.split('');
-  rentalPriceArr.splice(0, 1);
-  rentalPriceArr.push('$');
-  const modifiedRentalPrice = rentalPriceArr.join('');
-
   return createPortal(
     <Overlay
       onClick={event => {
@@ -152,8 +147,7 @@ export const Modal = ({
 
               <ConditionsTextWrap>
                 <ConditionsText>
-                  Price:{' '}
-                  <ConditionsAccent>{modifiedRentalPrice}</ConditionsAccent>
+                  Price: <ConditionsAccent>{rentalPrice}$</ConditionsAccent>
                 </ConditionsText>
               </ConditionsTextWrap>
             </ConditionsInnerWrap>

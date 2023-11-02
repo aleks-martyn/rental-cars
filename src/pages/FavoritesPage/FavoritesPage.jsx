@@ -91,8 +91,8 @@ export default function FavoritesPage() {
         break;
 
       case 'price':
-        setSelectedPrice(value);
-        save(SELECTED_PRICE, value);
+        setSelectedPrice(Number(value));
+        save(SELECTED_PRICE, Number(value));
         break;
 
       case 'min':

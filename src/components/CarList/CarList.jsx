@@ -59,53 +59,56 @@ export const CarList = ({ cars, toggleFavorite }) => {
   return (
     <Section>
       <List>
-        {cars &&
-          cars.map(
-            ({
-              id,
-              year,
-              make,
-              model,
-              type,
-              img,
-              description,
-              fuelConsumption,
-              engineSize,
-              accessories,
-              functionalities,
-              rentalPrice,
-              rentalCompany,
-              address,
-              rentalConditions,
-              mileage,
-            }) => {
-              const shortAddress = address?.split(', ').slice(1);
+        {cars?.map(
+          ({
+            id,
+            year,
+            make,
+            model,
+            type,
+            img,
+            description,
+            fuelConsumption,
+            engineSize,
+            accessories,
+            functionalities,
+            rentalPrice,
+            rentalCompany,
+            address,
+            rentalConditions,
+            mileage,
+          }) => {
+            const shortAddress = address?.split(', ').slice(1);
 
-              return (
-                <Car
-                  key={id}
-                  id={id}
-                  year={year}
-                  make={make}
-                  model={model}
-                  type={type}
-                  img={img}
-                  description={description}
-                  fuelConsumption={fuelConsumption}
-                  engineSize={engineSize}
-                  accessories={accessories}
-                  functionalities={functionalities}
-                  rentalPrice={rentalPrice}
-                  rentalCompany={rentalCompany}
-                  shortAddress={shortAddress}
-                  rentalConditions={rentalConditions}
-                  mileage={mileage}
-                  openModal={toggleModal}
-                  toggleFavorite={toggleFavorite}
-                />
-              );
-            }
-          )}
+            const price = Number(
+              rentalPrice.split('').slice(1, rentalPrice.length).join('')
+            );
+
+            return (
+              <Car
+                key={id}
+                id={id}
+                year={year}
+                make={make}
+                model={model}
+                type={type}
+                img={img}
+                description={description}
+                fuelConsumption={fuelConsumption}
+                engineSize={engineSize}
+                accessories={accessories}
+                functionalities={functionalities}
+                rentalPrice={price}
+                rentalCompany={rentalCompany}
+                shortAddress={shortAddress}
+                rentalConditions={rentalConditions}
+                mileage={mileage}
+                openModal={toggleModal}
+                toggleFavorite={toggleFavorite}
+              />
+            );
+          }
+        )}
       </List>
 
       {showModal && (
