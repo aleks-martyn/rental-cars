@@ -1,8 +1,8 @@
 import { InputInnerWrap, StyledLabel, StyledInput } from './FilterInput.styled';
 
-export const FilterInput = ({ id, currentValue, onFilterChange }) => (
+export const FilterInput = ({ id, label, currentValue, onFilterChange }) => (
   <InputInnerWrap>
-    <StyledLabel htmlFor={id}>From</StyledLabel>
+    <StyledLabel htmlFor={id}>{label}</StyledLabel>
 
     <StyledInput
       type="number"
