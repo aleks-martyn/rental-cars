@@ -15,7 +15,13 @@ import {
 
 const selectBodyRoot = document.getElementById('select-body-root');
 
-export const CustomSelect = ({ title, id, items, onValueChange, currentValue }) => {
+export const CustomSelect = ({
+  title,
+  id,
+  items,
+  onValueChange,
+  currentValue,
+}) => {
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [left, setLeft] = useState(null);
   const [top, setTop] = useState(null);
