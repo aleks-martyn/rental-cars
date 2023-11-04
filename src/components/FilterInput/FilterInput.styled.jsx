@@ -29,6 +29,7 @@ export const StyledInput = styled.input`
   border-radius: ${({ id }) => borderRadius(id)};
   background-color: var(--select-color);
   color: var(--primary-text-color);
+  outline-color: var(--input-border-color);
   font-family: 'Manrope';
   font-weight: 500;
   font-size: 18px;
