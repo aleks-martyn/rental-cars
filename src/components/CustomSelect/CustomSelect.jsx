@@ -45,6 +45,7 @@ export const CustomSelect = ({
           onClick={() => {
             setIsToggleOn(prev => !prev);
           }}
+          tabIndex={1}
         >
           <SelectCurrent>{currentValue}</SelectCurrent>
           {isToggleOn ? <SelectArrowUpIcon /> : <SelectArrowDownIcon />}

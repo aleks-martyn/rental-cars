@@ -30,6 +30,10 @@ export const SelectHeader = styled.div`
   border-radius: 14px;
   background-color: var(--select-color);
   cursor: pointer;
+
+  :focus {
+    outline: 2px solid var(--input-border-color);
+  }
 `;
 
 export const SelectCurrent = styled.span`
@@ -90,7 +94,7 @@ export const SelectItem = styled.div`
   font-size: 16px;
   line-height: 1.25;
 
-  &:hover {
+  :hover {
     color: var(--button-text-color);
     background-color: var(--accent-color);
   }
