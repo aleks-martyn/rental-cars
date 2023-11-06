@@ -24,6 +24,7 @@ export default function FavoritesPage() {
   const [maxMileage, setMaxMileage] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
+  const [filteredCars, setFilteredCars] = useState([]);
 
   useEffect(() => {
     fetchAllCars()
@@ -67,6 +68,10 @@ export default function FavoritesPage() {
       setMaxMileage(savedMaxMileage);
     }
   }, []);
+
+  useEffect(() => {
+  console.log('filterBrand')
+}, [favoriteCars, selectedBrand])
 
   const toggleFavorite = id => {
     const storedFavorites = load(FAVORITES_KEY) ?? [];
