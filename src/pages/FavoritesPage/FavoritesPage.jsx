@@ -24,7 +24,10 @@ export default function FavoritesPage() {
   const [maxMileage, setMaxMileage] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
-  const [filteredCars, setFilteredCars] = useState([]);
+  const [firstFilteredCars, setFirstFilteredCars] = useState([]);
+  
+  console.log(firstFilteredCars);
+  
 
   useEffect(() => {
     fetchAllCars()
@@ -41,10 +44,11 @@ export default function FavoritesPage() {
 
   useEffect(() => {
     const storedFavorites = load(FAVORITES_KEY) ?? [];
-
-    setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
-    setError(null);
-    setStatus('resolved');
+    if (allCars.length === 0 || storedFavorites.length === 0) {
+      return;
+    } else {
+      setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
+    }
   }, [allCars]);
 
   useEffect(() => {
@@ -70,18 +74,37 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-  console.log('filterBrand')
-}, [favoriteCars, selectedBrand])
+    if (favoriteCars.length > 0 && selectedBrand !== 'Enter the text') {
+      const cars = favoriteCars.filter(({ make }) => make === selectedBrand);
+      setFirstFilteredCars(cars);
+    }
+
+    if (favoriteCars.length > 0 && selectedPrice !== 'To $') {
+      const cars = favoriteCars.filter(({ rentalPrice }) => {
+        const price = Number(
+          rentalPrice.split('').slice(1, rentalPrice.length).join('')
+        );
+        return price <= selectedPrice;
+      });
+      setFirstFilteredCars(cars);
+    }
+  }, [favoriteCars, selectedBrand, selectedPrice]);
+
+  useEffect(() => {
+    if (firstFilteredCars.length > 0 && selectedBrand !== 'Enter the text' && selectedPrice !== 'To $') {
+      console.log('second filter')
+    }
+  })
 
   const toggleFavorite = id => {
     const storedFavorites = load(FAVORITES_KEY) ?? [];
 
-    const isFavorite = storedFavorites?.find(carId => carId === id);
+    const isFavorite = storedFavorites.find(carId => carId === id);
 
     if (isFavorite) {
-      const index = storedFavorites?.findIndex(carId => carId === id);
+      const index = storedFavorites.findIndex(carId => carId === id);
 
-      if (index !== -1) storedFavorites?.splice(index, 1);
+      if (index !== -1) storedFavorites.splice(index, 1);
       save(FAVORITES_KEY, storedFavorites);
 
       setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
@@ -120,11 +143,14 @@ export default function FavoritesPage() {
     setSelectedPrice('To $');
     setMinMileage('');
     setMaxMileage('');
+
+    setFirstFilteredCars([]);
+
     remove(SELECTED_BRAND);
     remove(SELECTED_PRICE);
     remove(MIN_MILEAGE);
     remove(MAX_MILEAGE);
-  }
+  };
 
   const handleLoadmoreBtnClick = () => console.log('Under development');
 
@@ -140,7 +166,7 @@ export default function FavoritesPage() {
         maxMileage={maxMileage}
       />
       {status === 'pending' && <Spinner />}
-      {status === 'rejected' && <h3>{error.message}</h3>}
+      {status === 'rejected' && <h3>{error?.message}</h3>}
       {status === 'resolved' && (
         <CarList cars={favoriteCars} toggleFavorite={toggleFavorite} />
       )}
