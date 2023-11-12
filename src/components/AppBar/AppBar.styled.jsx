@@ -15,15 +15,16 @@ export const StyledNav = styled.nav`
 export const StyledNavLink = styled(NavLink)`
   font-size: 24px;
   font-weight: 500;
+  text-decoration: none;
   color: var(--secondary-text-color);
   transition: color var(--tra);
 
-  &.active {
-    color: var(--accent-color);
+  :hover,
+  :focus {
+    text-decoration: underline;
   }
 
-  &:hover,
-  &:focus {
-    text-decoration: underline;
+  &.active {
+    color: var(--accent-color);
   }
 `;
