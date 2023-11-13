@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { NavLink } from "react-router-dom";
+import styled from '@emotion/styled';
+import { NavLink } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
   padding: 20px 35px;
@@ -19,9 +19,13 @@ export const StyledNavLink = styled(NavLink)`
   color: var(--secondary-text-color);
   transition: color var(--tra);
 
-  :hover,
-  :focus {
+  :hover {
     text-decoration: underline;
+  }
+  
+  :focus {
+    text-shadow: 1px 1px 2px var(--accent-color);
+    outline: none;
   }
 
   &.active {
