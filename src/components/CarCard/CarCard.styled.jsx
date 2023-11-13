@@ -123,7 +123,7 @@ export const LearnMoreBtn = styled.button`
   line-height: 1.43;
   transition: background-color var(--tra);
 
-  &:hover {
+  :hover {
     background-color: var(--button-active-color);
   }
 `;
