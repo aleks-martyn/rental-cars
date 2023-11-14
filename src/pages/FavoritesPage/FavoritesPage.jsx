@@ -43,11 +43,7 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    if (allCars.length === 0 || storedFavoritesIds.length === 0) {
-      return;
-    } else {
-      setFavoriteCars(getFavoriteCars(storedFavoritesIds, allCars));
-    }
+    setFavoriteCars(getFavoriteCars(storedFavoritesIds, allCars));
   }, [allCars, storedFavoritesIds]);
 
   useEffect(() => {
@@ -73,7 +69,7 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    if (favoriteCars.length === 0) return;
+    if (favoriteCars.length === 0) setFilteredCars([]);
 
     const cars = favoriteCars.filter(({ make, rentalPrice, mileage }) => {
       const price = Number(
@@ -172,7 +168,7 @@ export default function FavoritesPage() {
       />
       {status === 'pending' && <Spinner />}
       {status === 'rejected' && <h3>{error?.message}</h3>}
-      {status === 'resolved' && (
+      {status === 'resolved' && filteredCars.length > 0 && (
         <CarList cars={filteredCars} toggleFavorite={toggleFavorite} />
       )}
       <LoadmoreBtn onClick={handleLoadmoreBtnClick} />
