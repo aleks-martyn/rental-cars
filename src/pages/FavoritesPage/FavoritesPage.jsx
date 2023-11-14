@@ -17,6 +17,7 @@ import {
 
 export default function FavoritesPage() {
   const [allCars, setAllCars] = useState([]);
+  const [storedFavoritesIds, setStoredFavoritesIds] = useState([]);
   const [favoriteCars, setFavoriteCars] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState('Enter the text');
   const [selectedPrice, setSelectedPrice] = useState('To $');
@@ -37,16 +38,17 @@ export default function FavoritesPage() {
         setError(error);
         setStatus('rejected');
       });
+
+    setStoredFavoritesIds(load(FAVORITES_KEY) ?? []);
   }, []);
 
   useEffect(() => {
-    const storedFavorites = load(FAVORITES_KEY) ?? [];
-    if (allCars.length === 0 || storedFavorites.length === 0) {
+    if (allCars.length === 0 || storedFavoritesIds.length === 0) {
       return;
     } else {
-      setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
+      setFavoriteCars(getFavoriteCars(storedFavoritesIds, allCars));
     }
-  }, [allCars]);
+  }, [allCars, storedFavoritesIds]);
 
   useEffect(() => {
     const savedBrand = load(SELECTED_BRAND);
@@ -71,239 +73,48 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    const brandFilter = ({ make }) => make === selectedBrand;
+    if (favoriteCars.length === 0) return;
 
-    const priceFilter = ({ rentalPrice }) => {
+    const cars = favoriteCars.filter(({ make, rentalPrice, mileage }) => {
       const price = Number(
         rentalPrice.split('').slice(1, rentalPrice.length).join('')
       );
-      return price <= selectedPrice;
-    };
 
-    const minMileageFilter = ({ mileage }) => {
-      const carMinMileage = Number(minMileage.split('.').join(''));
-      return carMinMileage <= mileage;
-    };
+      const carMileage = miles => Number(miles.split('.').join(''));
+      const carMinMileage = carMileage(minMileage);
+      const carMaxMileage = carMileage(maxMileage);
 
-    const maxMileageFilter = ({ mileage }) => {
-      const carMaxMileage = Number(maxMileage.split('.').join(''));
-      return mileage <= carMaxMileage;
-    };
+      if (selectedBrand !== 'Enter the text' && make !== selectedBrand) {
+        return false;
+      }
 
-    if (favoriteCars.length === 0) return;
+      if (selectedPrice !== 'To $' && price > selectedPrice) {
+        return false;
+      }
 
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage === '' &&
-      maxMileage === ''
-    ) {
-      setFilteredCars(favoriteCars);
-    }
+      if (carMinMileage !== 0 && carMinMileage > mileage) {
+        return false;
+      }
 
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage === '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars.filter(brandFilter);
-      setFilteredCars(cars);
-    }
+      if (carMaxMileage !== 0 && carMaxMileage < mileage) {
+        return false;
+      }
 
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage === '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars.filter(priceFilter);
-      setFilteredCars(cars);
-    }
+      return true;
+    });
 
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage !== '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars.filter(minMileageFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage === '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars.filter(maxMileageFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage === '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars.filter(brandFilter).filter(priceFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage !== '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars.filter(brandFilter).filter(minMileageFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage === '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars.filter(brandFilter).filter(maxMileageFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage !== '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars.filter(priceFilter).filter(minMileageFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage === '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars.filter(priceFilter).filter(maxMileageFilter);
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage !== '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars
-        .filter(minMileageFilter)
-        .filter(maxMileageFilter);
-
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage !== '' &&
-      maxMileage === ''
-    ) {
-      const cars = favoriteCars
-        .filter(brandFilter)
-        .filter(priceFilter)
-        .filter(minMileageFilter);
-
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage === '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars
-        .filter(brandFilter)
-        .filter(priceFilter)
-        .filter(maxMileageFilter);
-
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice === 'To $' &&
-      minMileage !== '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars
-        .filter(brandFilter)
-        .filter(minMileageFilter)
-        .filter(maxMileageFilter);
-
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand === 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage !== '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars
-        .filter(priceFilter)
-        .filter(minMileageFilter)
-        .filter(maxMileageFilter);
-
-      setFilteredCars(cars);
-    }
-
-    if (
-      favoriteCars.length > 0 &&
-      selectedBrand !== 'Enter the text' &&
-      selectedPrice !== 'To $' &&
-      minMileage !== '' &&
-      maxMileage !== ''
-    ) {
-      const cars = favoriteCars
-        .filter(brandFilter)
-        .filter(priceFilter)
-        .filter(minMileageFilter)
-        .filter(maxMileageFilter);
-
-      setFilteredCars(cars);
-    }
+    setFilteredCars(cars);
   }, [favoriteCars, selectedBrand, selectedPrice, minMileage, maxMileage]);
 
   const toggleFavorite = id => {
-    const storedFavorites = load(FAVORITES_KEY) ?? [];
-
-    const isFavorite = storedFavorites.find(carId => carId === id);
+    const isFavorite = storedFavoritesIds.find(carId => carId === id);
 
     if (isFavorite) {
-      const index = storedFavorites.findIndex(carId => carId === id);
+      const newFavoritesIds = storedFavoritesIds.filter(carId => carId !== id);
 
-      if (index !== -1) storedFavorites.splice(index, 1);
-      save(FAVORITES_KEY, storedFavorites);
+      setStoredFavoritesIds(newFavoritesIds);
 
-      setFavoriteCars(getFavoriteCars(storedFavorites, allCars));
+      save(FAVORITES_KEY, newFavoritesIds);
     }
   };
 
