@@ -28,18 +28,20 @@ export default function CatalogPage() {
   }, [page]);
 
   const toggleFavorite = id => {
-    const storedFavorites = load(FAVORITES_KEY) ?? [];
+    const storedFavoritesIds = load(FAVORITES_KEY) ?? [];
 
-    const isFavorite = storedFavorites?.find(carId => carId === id);
+    const isFavorite = storedFavoritesIds.includes(id);
 
     if (isFavorite) {
-      const index = storedFavorites?.findIndex(carId => carId === id);
+      const index = storedFavoritesIds.findIndex(carId => carId === id);
 
-      if (index !== -1) storedFavorites?.splice(index, 1);
-      save(FAVORITES_KEY, storedFavorites);
+      if (index !== -1) storedFavoritesIds.splice(index, 1);
+
+      save(FAVORITES_KEY, storedFavoritesIds);
     } else {
-      storedFavorites?.push(id);
-      save(FAVORITES_KEY, storedFavorites);
+      storedFavoritesIds.push(id);
+
+      save(FAVORITES_KEY, storedFavoritesIds);
     }
   };
 
