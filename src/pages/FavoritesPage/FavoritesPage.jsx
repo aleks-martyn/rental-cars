@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { debounce } from 'lodash';
 import { fetchAllCars } from 'services/api';
 import { CarList } from 'components/CarList';
 import { getFavoriteCars } from 'js/getFavoriteCars';
 import { getUniqueBrands } from 'js/getUniqueBrands';
+import { getModifiedMileage } from 'js/getModifiedMileage';
+import { getModifiedPrice } from 'js/getModifiedPrice';
 import { load, save, remove } from 'js/localStorageFunctions';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
@@ -26,6 +29,19 @@ export default function FavoritesPage() {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
   const [filteredCars, setFilteredCars] = useState([]);
+  const [debounsedMinMileage, setDebounsedMinMileage] = useState('');
+  const [debounsedMaxMileage, setDebounsedMaxMileage] = useState('');
+
+  const debounsedMinSearch = useRef(
+    debounce(value => setDebounsedMinMileage(value), 300)
+  ).current;
+
+  const debounsedMaxSearch = useRef(
+    debounce(value => setDebounsedMaxMileage(value), 300)
+  ).current;
+
+  debounsedMinSearch(minMileage);
+  debounsedMaxSearch(maxMileage);
 
   useEffect(() => {
     fetchAllCars()
@@ -72,13 +88,9 @@ export default function FavoritesPage() {
     if (favoriteCars.length === 0) setFilteredCars([]);
 
     const cars = favoriteCars.filter(({ make, rentalPrice, mileage }) => {
-      const price = Number(
-        rentalPrice.split('').slice(1, rentalPrice.length).join('')
-      );
-
-      const carMileage = miles => Number(miles.split('.').join(''));
-      const carMinMileage = carMileage(minMileage);
-      const carMaxMileage = carMileage(maxMileage);
+      const price = getModifiedPrice(rentalPrice);
+      const carMinMileage = getModifiedMileage(debounsedMinMileage);
+      const carMaxMileage = getModifiedMileage(debounsedMaxMileage);
 
       if (selectedBrand !== 'Enter the text' && make !== selectedBrand) {
         return false;
@@ -100,18 +112,27 @@ export default function FavoritesPage() {
     });
 
     setFilteredCars(cars);
-  }, [favoriteCars, selectedBrand, selectedPrice, minMileage, maxMileage]);
+  }, [
+    favoriteCars,
+    selectedBrand,
+    selectedPrice,
+    debounsedMinMileage,
+    debounsedMaxMileage,
+  ]);
+
+  useEffect(() => {
+    return () => {
+      debounsedMinSearch.cancel();
+      debounsedMaxSearch.cancel();
+    };
+  }, [debounsedMaxSearch, debounsedMinSearch]);
 
   const toggleFavorite = id => {
-    const isFavorite = storedFavoritesIds.find(carId => carId === id);
+    const newFavoritesIds = storedFavoritesIds.filter(carId => carId !== id);
 
-    if (isFavorite) {
-      const newFavoritesIds = storedFavoritesIds.filter(carId => carId !== id);
+    setStoredFavoritesIds(newFavoritesIds);
 
-      setStoredFavoritesIds(newFavoritesIds);
-
-      save(FAVORITES_KEY, newFavoritesIds);
-    }
+    save(FAVORITES_KEY, newFavoritesIds);
   };
 
   const handleChange = (id, value) => {
