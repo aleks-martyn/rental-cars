@@ -29,19 +29,16 @@ export default function FavoritesPage() {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
   const [filteredCars, setFilteredCars] = useState([]);
-  const [debounsedMinMileage, setDebounsedMinMileage] = useState('');
-  const [debounsedMaxMileage, setDebounsedMaxMileage] = useState('');
+  const [filterMinMileage, setFilterMinMileage] = useState('');
+  const [filterMaxMileage, setFilterMaxMileage] = useState('');
 
-  const debounsedMinSearch = useRef(
-    debounce(value => setDebounsedMinMileage(value), 300)
+  const debounsedMinMileage = useRef(
+    debounce(value => setFilterMinMileage(value), 300)
   ).current;
 
-  const debounsedMaxSearch = useRef(
-    debounce(value => setDebounsedMaxMileage(value), 300)
+  const debounsedMaxMileage = useRef(
+    debounce(value => setFilterMaxMileage(value), 300)
   ).current;
-
-  debounsedMinSearch(minMileage);
-  debounsedMaxSearch(maxMileage);
 
   useEffect(() => {
     fetchAllCars()
@@ -76,11 +73,13 @@ export default function FavoritesPage() {
     const savedMinMileage = load(MIN_MILEAGE);
     if (savedMinMileage) {
       setMinMileage(savedMinMileage);
+      setFilterMinMileage(savedMinMileage);
     }
 
     const savedMaxMileage = load(MAX_MILEAGE);
     if (savedMaxMileage) {
       setMaxMileage(savedMaxMileage);
+      setFilterMaxMileage(savedMaxMileage);
     }
   }, []);
 
@@ -89,8 +88,8 @@ export default function FavoritesPage() {
 
     const cars = favoriteCars.filter(({ make, rentalPrice, mileage }) => {
       const price = getModifiedPrice(rentalPrice);
-      const carMinMileage = getModifiedMileage(debounsedMinMileage);
-      const carMaxMileage = getModifiedMileage(debounsedMaxMileage);
+      const modifiedMinMileage = getModifiedMileage(filterMinMileage);
+      const modifiedMaxMileage = getModifiedMileage(filterMaxMileage);
 
       if (selectedBrand !== 'Enter the text' && make !== selectedBrand) {
         return false;
@@ -100,11 +99,11 @@ export default function FavoritesPage() {
         return false;
       }
 
-      if (carMinMileage !== 0 && carMinMileage > mileage) {
+      if (modifiedMinMileage !== 0 && modifiedMinMileage > mileage) {
         return false;
       }
 
-      if (carMaxMileage !== 0 && carMaxMileage < mileage) {
+      if (modifiedMaxMileage !== 0 && modifiedMaxMileage < mileage) {
         return false;
       }
 
@@ -116,16 +115,16 @@ export default function FavoritesPage() {
     favoriteCars,
     selectedBrand,
     selectedPrice,
-    debounsedMinMileage,
-    debounsedMaxMileage,
+    filterMinMileage,
+    filterMaxMileage,
   ]);
 
   useEffect(() => {
     return () => {
-      debounsedMinSearch.cancel();
-      debounsedMaxSearch.cancel();
+      debounsedMinMileage.cancel();
+      debounsedMaxMileage.cancel();
     };
-  }, [debounsedMaxSearch, debounsedMinSearch]);
+  }, [debounsedMinMileage, debounsedMaxMileage]);
 
   const toggleFavorite = id => {
     const newFavoritesIds = storedFavoritesIds.filter(carId => carId !== id);
@@ -149,11 +148,13 @@ export default function FavoritesPage() {
 
       case 'min':
         setMinMileage(value);
+        debounsedMinMileage(value);
         save(MIN_MILEAGE, value);
         break;
 
       case 'max':
         setMaxMileage(value);
+        debounsedMaxMileage(value);
         save(MAX_MILEAGE, value);
         break;
 
@@ -167,6 +168,8 @@ export default function FavoritesPage() {
     setSelectedPrice('To $');
     setMinMileage('');
     setMaxMileage('');
+    setFilterMinMileage('');
+    setFilterMaxMileage('');
 
     remove(SELECTED_BRAND);
     remove(SELECTED_PRICE);
