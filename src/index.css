@@ -22,6 +22,7 @@
   font-weight: 600;
   src: local('Manrope SemiBold'), local('Manrope-SemiBold'),
     url('./fonts/Manrope-SemiBold.ttf') format('truetype');
+  font-display: swap;
 }
 
 :root {
