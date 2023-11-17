@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const CatalogBtn = styled.button`
   display: block;
@@ -18,7 +18,11 @@ export const CatalogBtn = styled.button`
   line-height: 1.43;
   transition: background-color var(--tra);
 
-  &:hover {
+  :hover {
     background-color: var(--button-active-color);
+  }
+
+  :focus {
+    outline: 2px solid var(--button-active-color);
   }
 `;
