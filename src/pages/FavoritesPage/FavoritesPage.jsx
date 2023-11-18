@@ -4,8 +4,7 @@ import { fetchAllCars } from 'services/api';
 import { CarList } from 'components/CarList';
 import { getFavoriteCars } from 'js/getFavoriteCars';
 import { getUniqueBrands } from 'js/getUniqueBrands';
-import { getModifiedMileage } from 'js/getModifiedMileage';
-import { getModifiedPrice } from 'js/getModifiedPrice';
+import { getFilteredCars } from 'js/getFilteredCars';
 import { load, save, remove } from 'js/localStorageFunctions';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
@@ -86,31 +85,14 @@ export default function FavoritesPage() {
   useEffect(() => {
     if (favoriteCars.length === 0) setFilteredCars([]);
 
-    const cars = favoriteCars.filter(({ make, rentalPrice, mileage }) => {
-      const price = getModifiedPrice(rentalPrice);
-      const modifiedMinMileage = getModifiedMileage(filterMinMileage);
-      const modifiedMaxMileage = getModifiedMileage(filterMaxMileage);
+    const filter = {
+      brand: selectedBrand,
+      price: selectedPrice,
+      minMileage: filterMinMileage,
+      maxMileage: filterMaxMileage,
+    };
 
-      if (selectedBrand !== 'Enter the text' && make !== selectedBrand) {
-        return false;
-      }
-
-      if (selectedPrice !== 'To $' && price > selectedPrice) {
-        return false;
-      }
-
-      if (modifiedMinMileage !== 0 && modifiedMinMileage > mileage) {
-        return false;
-      }
-
-      if (modifiedMaxMileage !== 0 && modifiedMaxMileage < mileage) {
-        return false;
-      }
-
-      return true;
-    });
-
-    setFilteredCars(cars);
+    setFilteredCars(getFilteredCars(favoriteCars, filter));
   }, [
     favoriteCars,
     selectedBrand,
