@@ -146,7 +146,7 @@ export const RentalCarLink = styled.a`
   line-height: 1.43;
   transition: background-color var(--tra);
 
-  &:hover {
+  :hover {
     background-color: var(--button-active-color);
   }
 `;
