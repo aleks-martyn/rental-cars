@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import {
   SelectWrap,
@@ -27,7 +27,21 @@ export const CustomSelect = ({
   const [top, setTop] = useState(null);
   const [width, setWidth] = useState(null);
   const [height, setHeight] = useState(null);
-  const topSelect = top + height + 4;
+  const [scrollX, setScrollX] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const leftSelect = left - scrollX;
+  const topSelect = top + height + 4 - scrollY;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsToggleOn(false);
+    };
+    if (isToggleOn) {
+      window.addEventListener('scroll', handleScroll);
+    } else {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isToggleOn]);
 
   return (
     <SelectWrap id={id}>
@@ -39,13 +53,15 @@ export const CustomSelect = ({
           setTop(e.currentTarget.offsetTop);
           setWidth(e.currentTarget.offsetWidth);
           setHeight(e.currentTarget.offsetHeight);
+          setScrollX(window.scrollX);
+          setScrollY(window.scrollY);
         }}
       >
         <SelectHeader
           onClick={() => {
             setIsToggleOn(prev => !prev);
           }}
-          tabIndex={1}
+          tabIndex={0}
         >
           <SelectCurrent>{currentValue}</SelectCurrent>
           {isToggleOn ? <SelectArrowUpIcon /> : <SelectArrowDownIcon />}
@@ -58,11 +74,11 @@ export const CustomSelect = ({
               if (e.currentTarget === e.target) setIsToggleOn(false);
             }}
           >
-            <SelectBody left={left} top={topSelect} width={width}>
+            <SelectBody left={leftSelect} top={topSelect} width={width}>
               {items?.map(item => (
                 <SelectItem
                   key={item}
-                  tabIndex={1}
+                  tabIndex={0}
                   currentValue={currentValue}
                   item={item}
                   onClick={e => {
