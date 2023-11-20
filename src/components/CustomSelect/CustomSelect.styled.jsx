@@ -98,4 +98,8 @@ export const SelectItem = styled.div`
     color: var(--button-text-color);
     background-color: var(--accent-color);
   }
+
+  :focus {
+    outline: 2px solid var(--input-border-color);
+  }
 `;
