@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const StyledLoadmoreBtn = styled.button`
   display: block;
@@ -19,7 +19,12 @@ export const StyledLoadmoreBtn = styled.button`
   line-height: 1.5;
   transition: color var(--tra);
 
-  &:hover {
+  :hover {
     color: var(--button-active-color);
+  }
+
+  :focus {
+    text-shadow: 1px 1px 2px var(--accent-color);
+    outline: none;
   }
 `;
