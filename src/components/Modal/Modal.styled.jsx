@@ -137,6 +137,7 @@ export const RentalCarLink = styled.a`
   padding: 12px 50px;
   border: none;
   border-radius: 12px;
+  outline: none;
   text-align: left;
   text-decoration: none;
   color: var(--button-text-color);
@@ -145,6 +146,10 @@ export const RentalCarLink = styled.a`
   font-size: 14px;
   line-height: 1.43;
   transition: background-color var(--tra);
+
+  :focus {
+    outline: 2px solid var(--button-active-color);
+  }
 
   :hover {
     background-color: var(--button-active-color);
@@ -159,7 +164,6 @@ export const CloseBtn = styled(Button)`
   height: 24px;
   padding: 0;
   color: var(--primary-text-color);
-  }
 `;
 
 export const CloseIcon = styled(CloseOutlinedIcon)`
