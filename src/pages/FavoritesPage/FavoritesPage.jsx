@@ -6,7 +6,6 @@ import { getFavoriteCars } from 'js/getFavoriteCars';
 import { getUniqueBrands } from 'js/getUniqueBrands';
 import { getFilteredCars } from 'js/getFilteredCars';
 import { load, save, remove } from 'js/localStorageFunctions';
-import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
 import { DropdownMenu } from 'components/DropdownMenu';
 import {
@@ -159,8 +158,6 @@ export default function FavoritesPage() {
     remove(MAX_MILEAGE);
   };
 
-  const handleLoadmoreBtnClick = () => console.log('Under development');
-
   return (
     <>
       <DropdownMenu
@@ -177,7 +174,6 @@ export default function FavoritesPage() {
       {status === 'resolved' && filteredCars.length > 0 && (
         <CarList cars={filteredCars} toggleFavorite={toggleFavorite} />
       )}
-      <LoadmoreBtn onClick={handleLoadmoreBtnClick} />
     </>
   );
 }
