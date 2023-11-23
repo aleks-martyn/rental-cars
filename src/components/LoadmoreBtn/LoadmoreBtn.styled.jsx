@@ -23,7 +23,7 @@ export const StyledLoadmoreBtn = styled.button`
     color: var(--button-active-color);
   }
 
-  :focus {
+  :focus-visible {
     text-shadow: 1px 1px 2px var(--accent-color);
     outline: none;
   }

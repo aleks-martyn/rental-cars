@@ -147,7 +147,7 @@ export const RentalCarLink = styled.a`
   line-height: 1.43;
   transition: background-color var(--tra);
 
-  :focus {
+  :focus-visible {
     outline: 2px solid var(--button-active-color);
   }
 

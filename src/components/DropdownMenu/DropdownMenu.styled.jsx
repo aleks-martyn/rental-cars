@@ -49,7 +49,7 @@ export const FormBtn = styled.button`
     background-color: var(--button-active-color);
   }
 
-  :focus {
+  :focus-visible {
     outline: 2px solid var(--button-active-color);
   }
 `;
