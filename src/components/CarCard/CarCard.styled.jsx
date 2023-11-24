@@ -37,8 +37,13 @@ export const FavoriteBtn = styled.button`
   width: 18px;
   height: 18px;
   border: none;
+  outline: none;
   color: ${setBtnColor};
   background-color: transparent;
+
+  :focus-visible {
+    outline: 2px solid ${setBtnColor};
+  }
 `;
 
 export const HeartIcon = styled(FavoriteIcon)`
@@ -125,5 +130,9 @@ export const LearnMoreBtn = styled.button`
 
   :hover {
     background-color: var(--button-active-color);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--button-active-color);
   }
 `;
