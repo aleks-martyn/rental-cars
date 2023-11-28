@@ -16,12 +16,20 @@ import {
   CATALOG_MAX_MILEAGE,
 } from 'constants';
 
+const useLocalStorage = (key, defaultValue) => {
+  const [state, setState] = useState(() => load(key) ?? defaultValue);
+  return [state, setState];
+};
+
 export default function CatalogPage() {
   const [cars, setCars] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
-  const [selectedBrand, setSelectedBrand] = useState('Enter the text');
+  const [selectedBrand, setSelectedBrand] = useLocalStorage(
+    CATALOG_BRAND,
+    'Enter the text'
+  );
   const [selectedPrice, setSelectedPrice] = useState('To $');
   const [minMileage, setMinMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
@@ -51,10 +59,10 @@ export default function CatalogPage() {
   }, [page]);
 
   useEffect(() => {
-    const savedBrand = load(CATALOG_BRAND);
-    if (savedBrand) {
-      setSelectedBrand(savedBrand);
-    }
+    //  const savedBrand = load(CATALOG_BRAND);
+    //  if (savedBrand) {
+    //    setSelectedBrand(savedBrand);
+    //  }
 
     const savedPrice = load(CATALOG_PRICE);
     if (savedPrice) {
