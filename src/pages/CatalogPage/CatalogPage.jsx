@@ -4,6 +4,7 @@ import { fetchCars } from 'services/api';
 import { getUniqueBrands } from 'js/getUniqueBrands';
 import { getFilteredCars } from 'js/getFilteredCars';
 import { load, save, remove } from 'js/localStorageFunctions';
+import useLocalStorage from 'hooks/useLocalStorage';
 import { CarList } from 'components/CarList';
 import { LoadmoreBtn } from 'components/LoadmoreBtn';
 import { Spinner } from 'components/Loader';
@@ -15,11 +16,6 @@ import {
   CATALOG_MIN_MILEAGE,
   CATALOG_MAX_MILEAGE,
 } from 'constants';
-
-const useLocalStorage = (key, defaultValue) => {
-  const [state, setState] = useState(() => load(key) ?? defaultValue);
-  return [state, setState];
-};
 
 export default function CatalogPage() {
   const [cars, setCars] = useState([]);
