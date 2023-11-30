@@ -26,11 +26,20 @@ export default function CatalogPage() {
     CATALOG_BRAND,
     'Enter the text'
   );
-  const [selectedPrice, setSelectedPrice] = useState('To $');
-  const [minMileage, setMinMileage] = useState('');
-  const [maxMileage, setMaxMileage] = useState('');
-  const [filterMinMileage, setFilterMinMileage] = useState('');
-  const [filterMaxMileage, setFilterMaxMileage] = useState('');
+  const [selectedPrice, setSelectedPrice] = useLocalStorage(
+    CATALOG_PRICE,
+    'To $'
+  );
+  const [minMileage, setMinMileage] = useLocalStorage(CATALOG_MIN_MILEAGE, '');
+  const [maxMileage, setMaxMileage] = useLocalStorage(CATALOG_MAX_MILEAGE, '');
+  const [filterMinMileage, setFilterMinMileage] = useLocalStorage(
+    CATALOG_MIN_MILEAGE,
+    ''
+  );
+  const [filterMaxMileage, setFilterMaxMileage] = useLocalStorage(
+    CATALOG_MAX_MILEAGE,
+    ''
+  );
   const [filteredCars, setFilteredCars] = useState([]);
 
   const debounsedMinMileage = useRef(
@@ -53,30 +62,6 @@ export default function CatalogPage() {
         setStatus('rejected');
       });
   }, [page]);
-
-  useEffect(() => {
-    //  const savedBrand = load(CATALOG_BRAND);
-    //  if (savedBrand) {
-    //    setSelectedBrand(savedBrand);
-    //  }
-
-    const savedPrice = load(CATALOG_PRICE);
-    if (savedPrice) {
-      setSelectedPrice(savedPrice);
-    }
-
-    const savedMinMileage = load(CATALOG_MIN_MILEAGE);
-    if (savedMinMileage) {
-      setMinMileage(savedMinMileage);
-      setFilterMinMileage(savedMinMileage);
-    }
-
-    const savedMaxMileage = load(CATALOG_MAX_MILEAGE);
-    if (savedMaxMileage) {
-      setMaxMileage(savedMaxMileage);
-      setFilterMaxMileage(savedMaxMileage);
-    }
-  }, []);
 
   useEffect(() => {
     if (cars.length === 0) setFilteredCars([]);
