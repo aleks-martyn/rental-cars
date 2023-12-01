@@ -6,6 +6,7 @@ import { getFavoriteCars } from 'js/getFavoriteCars';
 import { getUniqueBrands } from 'js/getUniqueBrands';
 import { getFilteredCars } from 'js/getFilteredCars';
 import { load, save, remove } from 'js/localStorageFunctions';
+import useLocalStorage from 'hooks/useLocalStorage';
 import { Spinner } from 'components/Loader';
 import { DropdownMenu } from 'components/DropdownMenu';
 import {
@@ -20,15 +21,27 @@ export default function FavoritesPage() {
   const [allCars, setAllCars] = useState([]);
   const [storedFavoritesIds, setStoredFavoritesIds] = useState([]);
   const [favoriteCars, setFavoriteCars] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState('Enter the text');
-  const [selectedPrice, setSelectedPrice] = useState('To $');
-  const [minMileage, setMinMileage] = useState('');
-  const [maxMileage, setMaxMileage] = useState('');
+  const [selectedBrand, setSelectedBrand] = useLocalStorage(
+    SELECTED_BRAND,
+    'Enter the text'
+  );
+  const [selectedPrice, setSelectedPrice] = useLocalStorage(
+    SELECTED_PRICE,
+    'To $'
+  );
+  const [minMileage, setMinMileage] = useLocalStorage(MIN_MILEAGE, '');
+  const [maxMileage, setMaxMileage] = useLocalStorage(MAX_MILEAGE, '');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('pending');
   const [filteredCars, setFilteredCars] = useState([]);
-  const [filterMinMileage, setFilterMinMileage] = useState('');
-  const [filterMaxMileage, setFilterMaxMileage] = useState('');
+  const [filterMinMileage, setFilterMinMileage] = useLocalStorage(
+    MIN_MILEAGE,
+    ''
+  );
+  const [filterMaxMileage, setFilterMaxMileage] = useLocalStorage(
+    MAX_MILEAGE,
+    ''
+  );
 
   const debounsedMinMileage = useRef(
     debounce(value => setFilterMinMileage(value), 300)
@@ -56,30 +69,6 @@ export default function FavoritesPage() {
   useEffect(() => {
     setFavoriteCars(getFavoriteCars(storedFavoritesIds, allCars));
   }, [allCars, storedFavoritesIds]);
-
-  useEffect(() => {
-    const savedBrand = load(SELECTED_BRAND);
-    if (savedBrand) {
-      setSelectedBrand(savedBrand);
-    }
-
-    const savedPrice = load(SELECTED_PRICE);
-    if (savedPrice) {
-      setSelectedPrice(savedPrice);
-    }
-
-    const savedMinMileage = load(MIN_MILEAGE);
-    if (savedMinMileage) {
-      setMinMileage(savedMinMileage);
-      setFilterMinMileage(savedMinMileage);
-    }
-
-    const savedMaxMileage = load(MAX_MILEAGE);
-    if (savedMaxMileage) {
-      setMaxMileage(savedMaxMileage);
-      setFilterMaxMileage(savedMaxMileage);
-    }
-  }, []);
 
   useEffect(() => {
     if (favoriteCars.length === 0) setFilteredCars([]);
