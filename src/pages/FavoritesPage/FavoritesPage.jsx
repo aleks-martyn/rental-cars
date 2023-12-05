@@ -15,6 +15,7 @@ import {
   SELECTED_PRICE,
   MIN_MILEAGE,
   MAX_MILEAGE,
+  Status,
 } from 'constants';
 
 export default function FavoritesPage() {
@@ -32,7 +33,7 @@ export default function FavoritesPage() {
   const [minMileage, setMinMileage] = useLocalStorage(MIN_MILEAGE, '');
   const [maxMileage, setMaxMileage] = useLocalStorage(MAX_MILEAGE, '');
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState('pending');
+  const [status, setStatus] = useState(Status.PENDING);
   const [filteredCars, setFilteredCars] = useState([]);
   const [filterMinMileage, setFilterMinMileage] = useLocalStorage(
     MIN_MILEAGE,
@@ -56,11 +57,11 @@ export default function FavoritesPage() {
       .then(res => {
         setAllCars(res);
         setError(null);
-        setStatus('resolved');
+        setStatus(Status.RESOLVED);
       })
       .catch(error => {
         setError(error);
-        setStatus('rejected');
+        setStatus(Status.REJECTED);
       });
 
     setStoredFavoritesIds(load(FAVORITES_KEY) ?? []);
@@ -158,9 +159,9 @@ export default function FavoritesPage() {
         minMileage={minMileage}
         maxMileage={maxMileage}
       />
-      {status === 'pending' && <Spinner />}
-      {status === 'rejected' && <h3>{error?.message}</h3>}
-      {status === 'resolved' && filteredCars.length > 0 && (
+      {status === Status.PENDING && <Spinner />}
+      {status === Status.REJECTED && <h3>{error?.message}</h3>}
+      {status === Status.RESOLVED && filteredCars.length > 0 && (
         <CarList cars={filteredCars} toggleFavorite={toggleFavorite} />
       )}
     </>

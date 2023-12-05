@@ -15,13 +15,14 @@ import {
   CATALOG_PRICE,
   CATALOG_MIN_MILEAGE,
   CATALOG_MAX_MILEAGE,
+  Status,
 } from 'constants';
 
 export default function CatalogPage() {
   const [cars, setCars] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState('pending');
+  const [status, setStatus] = useState(Status.PENDING);
   const [selectedBrand, setSelectedBrand] = useLocalStorage(
     CATALOG_BRAND,
     'Enter the text'
@@ -55,11 +56,11 @@ export default function CatalogPage() {
       .then(res => {
         page === 1 ? setCars(res) : setCars(prev => [...prev, ...res]);
         setError(null);
-        setStatus('resolved');
+        setStatus(Status.RESOLVED);
       })
       .catch(error => {
         setError(error);
-        setStatus('rejected');
+        setStatus(Status.REJECTED);
       });
   }, [page]);
 
@@ -155,9 +156,9 @@ export default function CatalogPage() {
         minMileage={minMileage}
         maxMileage={maxMileage}
       />
-      {status === 'pending' && <Spinner />}
-      {status === 'rejected' && <h3>{error?.message}</h3>}
-      {status === 'resolved' && (
+      {status === Status.PENDING && <Spinner />}
+      {status === Status.REJECTED && <h3>{error?.message}</h3>}
+      {status === Status.RESOLVED && (
         <CarList cars={filteredCars} toggleFavorite={toggleFavorite} />
       )}
       {page < 4 && (
