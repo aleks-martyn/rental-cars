@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { debounce } from 'lodash';
 import { fetchCars } from 'services/api';
 import { getUniqueBrands } from 'js/getUniqueBrands';
@@ -41,7 +41,6 @@ export default function CatalogPage() {
     CATALOG_MAX_MILEAGE,
     ''
   );
-  const [filteredCars, setFilteredCars] = useState([]);
 
   const debounsedMinMileage = useRef(
     debounce(value => setFilterMinMileage(value), 300)
@@ -65,8 +64,13 @@ export default function CatalogPage() {
   }, [page]);
 
   useEffect(() => {
-    if (cars.length === 0) setFilteredCars([]);
+    return () => {
+      debounsedMinMileage.cancel();
+      debounsedMaxMileage.cancel();
+    };
+  }, [debounsedMinMileage, debounsedMaxMileage]);
 
+  const filteredCars = useMemo(() => {
     const filter = {
       brand: selectedBrand,
       price: selectedPrice,
@@ -74,15 +78,8 @@ export default function CatalogPage() {
       maxMileage: filterMaxMileage,
     };
 
-    setFilteredCars(getFilteredCars(cars, filter));
+    return getFilteredCars(cars, filter);
   }, [cars, selectedBrand, selectedPrice, filterMinMileage, filterMaxMileage]);
-
-  useEffect(() => {
-    return () => {
-      debounsedMinMileage.cancel();
-      debounsedMaxMileage.cancel();
-    };
-  }, [debounsedMinMileage, debounsedMaxMileage]);
 
   const toggleFavorite = id => {
     const storedFavoritesIds = load(FAVORITES_KEY) ?? [];
@@ -158,7 +155,7 @@ export default function CatalogPage() {
       />
       {status === Status.PENDING && <Spinner />}
       {status === Status.REJECTED && <h3>{error?.message}</h3>}
-      {status === Status.RESOLVED && (
+      {status === Status.RESOLVED && filteredCars && (
         <CarList cars={filteredCars} toggleFavorite={toggleFavorite} />
       )}
       {page < 4 && (
