@@ -5,6 +5,8 @@ export const getFilteredCars = (
   cars,
   { brand, price, minMileage, maxMileage }
 ) => {
+  if (cars.length === 0) return;
+
   const filteredCars = cars.filter(({ make, rentalPrice, mileage }) => {
     const modifiedPrice = getModifiedPrice(rentalPrice);
     const modifiedMinMileage = getModifiedMileage(minMileage);
