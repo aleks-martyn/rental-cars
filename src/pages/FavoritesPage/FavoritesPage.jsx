@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { debounce } from 'lodash';
 import { fetchAllCars } from 'services/api';
 import { CarList } from 'components/CarList';
@@ -34,7 +34,6 @@ export default function FavoritesPage() {
   const [maxMileage, setMaxMileage] = useLocalStorage(MAX_MILEAGE, '');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.PENDING);
-  const [filteredCars, setFilteredCars] = useState([]);
   const [filterMinMileage, setFilterMinMileage] = useLocalStorage(
     MIN_MILEAGE,
     ''
@@ -72,8 +71,13 @@ export default function FavoritesPage() {
   }, [allCars, storedFavoritesIds]);
 
   useEffect(() => {
-    if (favoriteCars.length === 0) setFilteredCars([]);
+    return () => {
+      debounsedMinMileage.cancel();
+      debounsedMaxMileage.cancel();
+    };
+  }, [debounsedMinMileage, debounsedMaxMileage]);
 
+  const filteredCars = useMemo(() => {
     const filter = {
       brand: selectedBrand,
       price: selectedPrice,
@@ -81,7 +85,7 @@ export default function FavoritesPage() {
       maxMileage: filterMaxMileage,
     };
 
-    setFilteredCars(getFilteredCars(favoriteCars, filter));
+    return getFilteredCars(favoriteCars, filter);
   }, [
     favoriteCars,
     selectedBrand,
@@ -89,13 +93,6 @@ export default function FavoritesPage() {
     filterMinMileage,
     filterMaxMileage,
   ]);
-
-  useEffect(() => {
-    return () => {
-      debounsedMinMileage.cancel();
-      debounsedMaxMileage.cancel();
-    };
-  }, [debounsedMinMileage, debounsedMaxMileage]);
 
   const toggleFavorite = id => {
     const newFavoritesIds = storedFavoritesIds.filter(carId => carId !== id);
@@ -161,7 +158,7 @@ export default function FavoritesPage() {
       />
       {status === Status.PENDING && <Spinner />}
       {status === Status.REJECTED && <h3>{error?.message}</h3>}
-      {status === Status.RESOLVED && filteredCars.length > 0 && (
+      {status === Status.RESOLVED && filteredCars?.length > 0 && (
         <CarList cars={filteredCars} toggleFavorite={toggleFavorite} />
       )}
     </>
