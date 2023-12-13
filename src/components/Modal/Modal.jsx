@@ -60,10 +60,7 @@ export const Modal = ({
 
   const modifiedRentalConditions = rentalConditions.split('\n');
   const minAge = modifiedRentalConditions[0].split(': ');
-
-  const mileageArr = mileage.toString().split('');
-  mileageArr.splice(1, 0, ',');
-  const modifiedMileage = mileageArr.join('');
+  const modifiedMileage = Intl.NumberFormat('en-US').format(mileage);
 
   return createPortal(
     <Overlay
