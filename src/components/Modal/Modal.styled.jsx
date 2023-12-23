@@ -49,13 +49,13 @@ export const ModelName = styled.span`
   color: var(--accent-color);
 `;
 
-export const AddDataWrap = styled.div`
+export const OuterInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
 `;
 
-export const OtherDataWrap = styled.div`
+export const InfoWrap = styled.div`
   display: flex;
 `;
 
