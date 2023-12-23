@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { ModalInfoWrap } from './ModalInfoWrap';
 import {
   Overlay,
   ModalWin,
@@ -7,11 +8,8 @@ import {
   ModalInnerWrap,
   BrandName,
   ModelName,
-  AddDataWrap,
-  OtherDataWrap,
   Description,
   Subtitle,
-  InfoText,
   ConditionsWrap,
   ConditionsTextWrap,
   ConditionsInnerWrap,
@@ -61,6 +59,16 @@ export const Modal = ({
   const modifiedRentalConditions = rentalConditions.split('\n');
   const minAge = modifiedRentalConditions[0].split(': ');
   const modifiedMileage = Intl.NumberFormat('en-US').format(mileage);
+  const upperData = [
+    ...shortAddress,
+    `Id: ${id}`,
+    `Year: ${year}`,
+    `Type: ${type}`,
+  ];
+  const bottomData = [
+    `Fuel Consumption: ${fuelConsumption}`,
+    `Engine Size: ${engineSize}`,
+  ];
 
   return createPortal(
     <Overlay
@@ -78,20 +86,7 @@ export const Modal = ({
             {year}
           </BrandName>
 
-          <AddDataWrap>
-            <OtherDataWrap>
-              <InfoText>{shortAddress[0]}</InfoText>
-              <InfoText>{shortAddress[1]}</InfoText>
-              <InfoText>Id: {id}</InfoText>
-              <InfoText>Year: {year}</InfoText>
-              <InfoText>Type: {type}</InfoText>
-            </OtherDataWrap>
-
-            <OtherDataWrap>
-              <InfoText>Fuel Consumption: {fuelConsumption}</InfoText>
-              <InfoText>Engine Size: {engineSize}</InfoText>
-            </OtherDataWrap>
-          </AddDataWrap>
+          <ModalInfoWrap upperData={upperData} bottomData={bottomData} />
 
           <Description>{description}</Description>
         </ModalInnerWrap>
@@ -99,19 +94,7 @@ export const Modal = ({
         <ModalInnerWrap>
           <Subtitle>Accessories and functionalities:</Subtitle>
 
-          <AddDataWrap>
-            <OtherDataWrap>
-              {accessories.map((item, index) => (
-                <InfoText key={index}>{item}</InfoText>
-              ))}
-            </OtherDataWrap>
-
-            <OtherDataWrap>
-              {functionalities.map((item, index) => (
-                <InfoText key={index}>{item}</InfoText>
-              ))}
-            </OtherDataWrap>
-          </AddDataWrap>
+          <ModalInfoWrap upperData={accessories} bottomData={functionalities} />
         </ModalInnerWrap>
 
         <ModalInnerWrap>
