@@ -1,6 +1,13 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalInfoWrap } from './ModalInfoWrap';
+import { ModalConditionsWrap } from './ModalConditionsWrap';
+import {
+  getUpperData,
+  getBottomData,
+  getUpperConditions,
+  getBottomConditions,
+} from 'js/getConditions';
 import {
   Overlay,
   ModalWin,
@@ -11,10 +18,6 @@ import {
   Description,
   Subtitle,
   ConditionsWrap,
-  ConditionsTextWrap,
-  ConditionsInnerWrap,
-  ConditionsText,
-  ConditionsAccent,
   RentalCarLink,
   CloseBtn,
   CloseIcon,
@@ -59,16 +62,18 @@ export const Modal = ({
   const modifiedRentalConditions = rentalConditions.split('\n');
   const minAge = modifiedRentalConditions[0].split(': ');
   const modifiedMileage = Intl.NumberFormat('en-US').format(mileage);
-  const upperData = [
-    ...shortAddress,
-    `Id: ${id}`,
-    `Year: ${year}`,
-    `Type: ${type}`,
-  ];
-  const bottomData = [
-    `Fuel Consumption: ${fuelConsumption}`,
-    `Engine Size: ${engineSize}`,
-  ];
+  const modifiedPrice = `${rentalPrice}$`;
+  const upperData = getUpperData(shortAddress, id, year, type);
+  const bottomData = getBottomData(fuelConsumption, engineSize);
+  const upperConditions = getUpperConditions(
+    minAge[1],
+    modifiedRentalConditions[1]
+  );
+  const bottomConditions = getBottomConditions(
+    modifiedRentalConditions[2],
+    modifiedMileage,
+    modifiedPrice
+  );
 
   return createPortal(
     <Overlay
@@ -101,36 +106,9 @@ export const Modal = ({
           <Subtitle>Rental Conditions:</Subtitle>
 
           <ConditionsWrap>
-            <ConditionsInnerWrap>
-              <ConditionsTextWrap>
-                <ConditionsText>
-                  Minimum age: <ConditionsAccent>{minAge[1]}</ConditionsAccent>
-                </ConditionsText>
-              </ConditionsTextWrap>
+            <ModalConditionsWrap items={upperConditions} />
 
-              <ConditionsTextWrap>
-                <ConditionsText>{modifiedRentalConditions[1]}</ConditionsText>
-              </ConditionsTextWrap>
-            </ConditionsInnerWrap>
-
-            <ConditionsInnerWrap>
-              <ConditionsTextWrap>
-                <ConditionsText>{modifiedRentalConditions[2]}</ConditionsText>
-              </ConditionsTextWrap>
-
-              <ConditionsTextWrap>
-                <ConditionsText>
-                  Mileage:{' '}
-                  <ConditionsAccent>{modifiedMileage}</ConditionsAccent>
-                </ConditionsText>
-              </ConditionsTextWrap>
-
-              <ConditionsTextWrap>
-                <ConditionsText>
-                  Price: <ConditionsAccent>{rentalPrice}$</ConditionsAccent>
-                </ConditionsText>
-              </ConditionsTextWrap>
-            </ConditionsInnerWrap>
+            <ModalConditionsWrap items={bottomConditions} />
           </ConditionsWrap>
         </ModalInnerWrap>
 
