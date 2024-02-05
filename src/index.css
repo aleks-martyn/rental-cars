@@ -41,10 +41,7 @@
   --select-border-color: rgba(18, 20, 23, 0.05);
   --select-shadow-color: rgba(0, 0, 0, 0.02);
   --conditions-text-color: #363535;
-  --car-img-overlay-bg-grad: linear-gradient(
-    rgba(47, 48, 58, 0.4),
-    rgba(47, 48, 58, 0.4)
-  );
+  --car-img-overlay-bg-grad: rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4);
   --select-color: #f7f7fb;
   --shadow-color: #d3d3d3;
   --tra: 250ms cubic-bezier(0.4, 0, 0.2, 1);

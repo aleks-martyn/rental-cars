@@ -1,15 +1,46 @@
-import { Wrap, Title, Description } from "./Presentation.styled";
+import {
+  Wrap,
+  Title,
+  About,
+  Item,
+  Subtitle,
+  List,
+} from './Presentation.styled';
 
 export const Presentation = () => (
   <Wrap>
     <Title>Rental Cars</Title>
-    <Description>
-      Ми пропонуємо широкий вибір автомобілів різних класів, включаючи недорогі
-      моделі економ-класу та престижні автомобілі преміум-класу.<br/> Наш парк
-      складається з повністю застрахованих автомобілів, що регулярно проходять
-      технічні перевірки та обслуговування.<br/> Легко та зручно можна орендувати
-      автомобіль в одній із наших філій, розташованих у великих містах України.
-      Ми з радістю запропонуємо найкращі автомобілі для вашої подорожі.
-    </Description>
+
+    <About>
+      <Item>
+        We offer a wide selection of cars of different classes, including
+        inexpensive economy models and prestigious premium cars.
+      </Item>
+
+      <Item>
+        Our fleet consists of fully insured cars that regularly undergo
+        technical inspections and maintenance.
+      </Item>
+
+      <Item>
+        You can easily and conveniently rent a car at one of our branches
+        located in major cities of the country. We are happy to suggest the best
+        cars for your trip.
+      </Item>
+    </About>
+
+    <Subtitle>Our advantages:</Subtitle>
+
+    <List>
+      <Item>24/7 support</Item>
+
+      <Item>Quick registration</Item>
+
+      <Item>Free cancellation</Item>
+
+      <Item>Travel abroad</Item>
+
+      <Item>More than 200 rental points</Item>
+    </List>
   </Wrap>
 );
